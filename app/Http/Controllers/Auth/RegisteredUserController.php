@@ -36,8 +36,10 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $token = 'IDLINK' . str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
         $user = User::create([
             'name' => $request->name,
+            'token' => $token,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
