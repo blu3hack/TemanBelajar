@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail; // aktifkan ini
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail // tambahkan interface ini
 {
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Kolom yang bisa diisi massal.
      *
      * @var array<int, string>
      */
@@ -24,7 +24,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Kolom yang disembunyikan dari serialization.
      *
      * @var array<int, string>
      */
@@ -34,7 +34,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Kolom yang harus dikonversi ke tipe data tertentu.
      *
      * @return array<string, string>
      */
