@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeView\HomeController;
+use App\Http\Controllers\Notification\FonnteCOntroller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Register\RegisterController;
 use Illuminate\Foundation\Application;
@@ -23,9 +25,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/home-student', [HomeController::class, 'HomeViewStudent'])->name('home.student');
+    Route::get('/home-tentor', [HomeController::class, 'HomeViewTentor'])->name('home.tentor');
+    Route::get('form-register-mentot');
 });
 
 Route::get('/student-register', [RegisterController::class, 'StudentRegister'])->name('student.register');
-Route::get('/teacher-register', [RegisterController::class, 'TeacherRegister'])->name('teacher.register');
+Route::get('/mentor-register', [RegisterController::class, 'MentorRegister'])->name('mentor.register');
+Route::get('/send-wa', [FonnteCOntroller::class, 'send'])->name('send.wsa');
 
 require __DIR__.'/auth.php';

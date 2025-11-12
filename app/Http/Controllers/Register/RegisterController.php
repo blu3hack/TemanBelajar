@@ -13,7 +13,7 @@ class RegisterController extends Controller
         return Inertia::render('Register/Student');
     }
 
-    public function TeacherRegister()
+    public function MentorRegister()
     {
         return Inertia::render('Register/Teacher');
     }

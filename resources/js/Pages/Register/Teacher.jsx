@@ -1,315 +1,247 @@
 import React, { useState } from "react";
+import {
+    User,
+    MapPin,
+    Calendar,
+    Mail,
+    Phone,
+    BookOpen,
+    Users,
+    Award,
+    GraduationCap,
+} from "lucide-react";
+import { School } from "lucide-react";
 
-function FormRegister() {
+function Teacher() {
     const [formData, setFormData] = useState({
-        fullName: "",
+        namaLengkap: "",
+        tempatLahir: "",
+        tanggalLahir: "",
+        jenisKelamin: "",
+        agama: "",
+        alamat: "",
+        noTelepon: "",
         email: "",
-        password: "",
-        confirmPassword: "",
-        phone: "",
-        terms: false,
+        asalSekolah: "",
+        nisn: "",
+        jurusan: "",
+        tahunMasuk: "",
+        kelas: "",
+        namaWali: "",
+        pekerjaanWali: "",
+        kontakWali: "",
     });
 
-    const [errors, setErrors] = useState({});
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [currentStep, setCurrentStep] = useState(1);
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            [name]: type === "checkbox" ? checked : value,
-        }));
-        // Clear error when user starts typing
-        if (errors[name]) {
-            setErrors((prev) => ({ ...prev, [name]: "" }));
-        }
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
     };
 
-    const validateForm = () => {
-        const newErrors = {};
-
-        if (!formData.fullName.trim()) {
-            newErrors.fullName = "Nama lengkap harus diisi";
-        }
-
-        if (!formData.email.trim()) {
-            newErrors.email = "Email harus diisi";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = "Format email tidak valid";
-        }
-
-        if (!formData.password) {
-            newErrors.password = "Password harus diisi";
-        } else if (formData.password.length < 8) {
-            newErrors.password = "Password minimal 8 karakter";
-        }
-
-        if (!formData.confirmPassword) {
-            newErrors.confirmPassword = "Konfirmasi password harus diisi";
-        } else if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = "Password tidak cocok";
-        }
-
-        if (!formData.phone.trim()) {
-            newErrors.phone = "Nomor telepon harus diisi";
-        } else if (
-            !/^[0-9]{10,13}$/.test(formData.phone.replace(/[-\s]/g, ""))
-        ) {
-            newErrors.phone = "Nomor telepon tidak valid";
-        }
-
-        if (!formData.terms) {
-            newErrors.terms = "Anda harus menyetujui syarat dan ketentuan";
-        }
-
-        return newErrors;
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newErrors = validateForm();
-
-        if (Object.keys(newErrors).length === 0) {
-            alert(
-                "Registrasi berhasil!\n\nData:\n" +
-                    JSON.stringify(formData, null, 2)
-            );
-            // Reset form
-            setFormData({
-                fullName: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-                phone: "",
-                terms: false,
-            });
-        } else {
-            setErrors(newErrors);
-        }
+    const handleSubmit = () => {
+        console.log("Data Form:", formData);
+        alert("🎉 Selamat! Registrasi kamu berhasil disubmit!");
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                        Daftar Akun
-                    </h1>
-                    <p className="text-gray-600">
-                        Buat akun baru untuk melanjutkan
-                    </p>
+        <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 p-4 md:p-6">
+            {/* Header dengan Ilustrasi */}
+            <div className="text-center mb-6">
+                <div className="inline-block mb-4">
+                    <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+                        <GraduationCap className="w-12 h-12 text-white" />
+                    </div>
                 </div>
+            </div>
 
-                <div onSubmit={handleSubmit} className="space-y-5">
-                    {/* Full Name */}
-                    <div>
-                        <label
-                            htmlFor="fullName"
-                            className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                            Nama Lengkap
-                        </label>
-                        <input
-                            type="text"
-                            id="fullName"
-                            name="fullName"
-                            value={formData.fullName}
-                            onChange={handleChange}
-                            className={`w-full px-4 py-2 border ${
-                                errors.fullName
-                                    ? "border-red-500"
-                                    : "border-gray-300"
-                            } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition`}
-                            placeholder="Masukkan nama lengkap"
-                        />
-                        {errors.fullName && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {errors.fullName}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Email */}
-                    <div>
-                        <label
-                            htmlFor="email"
-                            className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={`w-full px-4 py-2 border ${
-                                errors.email
-                                    ? "border-red-500"
-                                    : "border-gray-300"
-                            } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition`}
-                            placeholder="nama@email.com"
-                        />
-                        {errors.email && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {errors.email}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Phone */}
-                    <div>
-                        <label
-                            htmlFor="phone"
-                            className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                            Nomor Telepon
-                        </label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className={`w-full px-4 py-2 border ${
-                                errors.phone
-                                    ? "border-red-500"
-                                    : "border-gray-300"
-                            } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition`}
-                            placeholder="08xxxxxxxxxx"
-                        />
-                        {errors.phone && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {errors.phone}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Password */}
-                    <div>
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                            Password
-                        </label>
-                        <div className="relative">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                className={`w-full px-4 py-2 border ${
-                                    errors.password
-                                        ? "border-red-500"
-                                        : "border-gray-300"
-                                } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition`}
-                                placeholder="Minimal 8 karakter"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                            >
-                                {showPassword ? "👁️" : "👁️‍🗨️"}
-                            </button>
-                        </div>
-                        {errors.password && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {errors.password}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Confirm Password */}
-                    <div>
-                        <label
-                            htmlFor="confirmPassword"
-                            className="block text-sm font-medium text-gray-700 mb-1"
-                        >
-                            Konfirmasi Password
-                        </label>
-                        <div className="relative">
-                            <input
-                                type={showConfirmPassword ? "text" : "password"}
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                className={`w-full px-4 py-2 border ${
-                                    errors.confirmPassword
-                                        ? "border-red-500"
-                                        : "border-gray-300"
-                                } rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition`}
-                                placeholder="Ulangi password"
-                            />
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    setShowConfirmPassword(!showConfirmPassword)
-                                }
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                            >
-                                {showConfirmPassword ? "👁️" : "👁️‍🗨️"}
-                            </button>
-                        </div>
-                        {errors.confirmPassword && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {errors.confirmPassword}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Terms and Conditions */}
-                    <div>
-                        <label className="flex items-start gap-2 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                name="terms"
-                                checked={formData.terms}
-                                onChange={handleChange}
-                                className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                            />
-                            <span className="text-sm text-gray-700">
-                                Saya menyetujui{" "}
-                                <span className="text-blue-600 hover:underline">
-                                    syarat dan ketentuan
-                                </span>{" "}
-                                yang berlaku
-                            </span>
-                        </label>
-                        {errors.terms && (
-                            <p className="text-red-500 text-sm mt-1">
-                                {errors.terms}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Submit Button */}
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-lg hover:shadow-xl"
+            <div className="w-full max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Card Kiri - Data Pribadi */}
+                    <div
+                        className="bg-white rounded-3xl shadow-2xl p-6 md:p-8 border-4 border-purple-200 transform hover:scale-[1.02] transition-all duration-300"
+                        onMouseEnter={() => setCurrentStep(1)}
                     >
-                        Daftar Sekarang
-                    </button>
+                        <div className="flex items-center mb-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-4 shadow-lg">
+                            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-purple-600 font-bold text-2xl mr-4 shadow-md">
+                                <User className="w-8 h-8" />
+                            </div>
+                            <div>
+                                <h2 className="text-2xl font-bold text-white">
+                                    Tentang Kamu
+                                </h2>
+                                <p className="text-purple-100 text-sm">
+                                    Ceritain tentang diri kamu
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="group">
+                                    <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                        <MapPin className="w-4 h-4 text-pink-500" />
+                                        Tempat Lahir
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="tempatLahir"
+                                        value={formData.tempatLahir}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-pink-300 focus:border-pink-500 transition-all group-hover:border-pink-300"
+                                        placeholder="Contoh: Jakarta"
+                                    />
+                                </div>
+                                <div className="group">
+                                    <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                        <Calendar className="w-4 h-4 text-blue-500" />
+                                        Tanggal Lahir
+                                    </label>
+                                    <input
+                                        type="date"
+                                        name="tanggalLahir"
+                                        value={formData.tanggalLahir}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all group-hover:border-blue-300"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="group">
+                                <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                    <MapPin className="w-4 h-4 text-red-500" />
+                                    Alamat Lengkap
+                                </label>
+                                <textarea
+                                    name="alamat"
+                                    value={formData.alamat}
+                                    onChange={handleChange}
+                                    rows="3"
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-red-300 focus:border-red-500 transition-all group-hover:border-red-300"
+                                    placeholder="Contoh: Jl. Merdeka No. 123, Jakarta Pusat"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="group">
+                                    <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                        <Phone className="w-4 h-4 text-green-500" />
+                                        No. HP Kamu
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        name="noTelepon"
+                                        value={formData.noTelepon}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-300 focus:border-green-500 transition-all group-hover:border-green-300"
+                                        placeholder="Contoh: 0812-3456-7890"
+                                    />
+                                </div>
+                                <div className="group">
+                                    <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                        <Mail className="w-4 h-4 text-blue-500" />
+                                        Email
+                                    </label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all group-hover:border-blue-300"
+                                        placeholder="Contoh: budi@email.com"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Card Kanan - Data Akademik & Wali */}
+                    <div
+                        className="bg-white rounded-3xl shadow-2xl p-6 md:p-8 border-4 border-blue-200 transform hover:scale-[1.02] transition-all duration-300"
+                        onMouseEnter={() => setCurrentStep(2)}
+                    >
+                        <div className="flex items-center mb-6 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-4 shadow-lg">
+                            <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-blue-600 font-bold text-2xl mr-4 shadow-md">
+                                <BookOpen className="w-8 h-8" />
+                            </div>
+                            <div>
+                                <h2 className="text-2xl font-bold text-white">
+                                    Info Tambahan
+                                </h2>
+                                <p className="text-blue-100 text-sm">
+                                    Data akademik & Basic Mentoring
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-5">
+                            <div className="group">
+                                <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                    <School className="w-4 h-4 text-blue-500" />
+                                    Almamater
+                                </label>
+                                <input
+                                    type="text"
+                                    name="asalSekolah"
+                                    value={formData.asalSekolah}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-300 focus:border-blue-500 transition-all group-hover:border-blue-300"
+                                    placeholder="Contoh: Institut Teknologi Sepuluh Nopember"
+                                />
+                            </div>
+
+                            <div className="group">
+                                <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                    <GraduationCap className="w-4 h-4 text-purple-500" />
+                                    Jurusan
+                                </label>
+                                <input
+                                    type="text"
+                                    name="namaWali"
+                                    value={formData.namaWali}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-purple-300 focus:border-purple-500 transition-all group-hover:border-purple-300"
+                                    placeholder="Contoh: Pendidikan Bahasa Inggris"
+                                />
+                            </div>
+
+                            <div className="group">
+                                <label className="flex items-center gap-2 text-sm font-bold text-gray-700 mb-2">
+                                    <BookOpen className="w-4 h-4 text-green-500" />
+                                    Mata Pelajaran
+                                </label>
+                                <input
+                                    type="tel"
+                                    name="kontakWali"
+                                    value={formData.kontakWali}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-green-300 focus:border-green-500 transition-all group-hover:border-green-300"
+                                    placeholder="Contoh: Bahasa Inggris, Matematika"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div className="mt-6 text-center">
-                    <p className="text-gray-600 text-sm">
-                        Sudah punya akun?{" "}
-                        <a
-                            href="#"
-                            className="text-blue-600 hover:underline font-medium"
-                        >
-                            Masuk di sini
-                        </a>
-                    </p>
+                {/* Submit Button dengan Animasi */}
+                <div className="mt-8 text-center">
+                    <button
+                        onClick={handleSubmit}
+                        className="group relative px-12 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 text-white font-bold rounded-full shadow-2xl hover:shadow-purple-500/50 transform hover:scale-110 hover:-translate-y-2 transition-all duration-300 text-lg"
+                    >
+                        <span className="flex items-center gap-3">
+                            <GraduationCap className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                            Kirim Registrasi! 🎉
+                            <Award className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                        </span>
+                        <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                    </button>
                 </div>
             </div>
         </div>
     );
 }
 
-export default FormRegister;
+export default Teacher;
