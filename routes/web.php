@@ -4,7 +4,9 @@ use App\Http\Controllers\HomeView\HomeController;
 use App\Http\Controllers\Notification\FonnteCOntroller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Register\CreateMentorController;
+use App\Http\Controllers\Register\CreateStudentController;
 use App\Http\Controllers\Register\RegisterController;
+use App\Http\Controllers\Register\WhatsappVerificationCOntroller;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,5 +37,7 @@ Route::get('/mentor-register', [RegisterController::class, 'MentorRegister'])->n
 Route::get('/send-wa', [FonnteCOntroller::class, 'send'])->name('send.wsa');
 
 Route::post('/create-mentor', [CreateMentorController::class, 'store'])->name('create.mentor');
+Route::post('/create-student', [CreateStudentController::class, 'store'])->name('create.student');
+Route::get('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'SendWAVerification'])->name('send-wsa');
 
 require __DIR__.'/auth.php';

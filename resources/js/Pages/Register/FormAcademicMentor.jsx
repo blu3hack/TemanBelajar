@@ -72,7 +72,7 @@ function FormAcademicMentor({ data, setData, errors }) {
                         accept="image/*"
                         onChange={(e) => {
                             const file = e.target.files?.[0];
-                            if (file) setData("profile_picture", file);
+                            if (file) setData("certificate", file);
                         }}
                         icon={Award}
                     />

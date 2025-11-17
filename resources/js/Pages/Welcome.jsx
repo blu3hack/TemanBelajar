@@ -65,12 +65,11 @@ export default function LandingPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 sm:gap-3 group cursor-pointer">
-                            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 rounded-lg relative overflow-hidden">
-                                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                            </div>
-                            <span className="text-lg sm:text-xl font-bold tracking-wider bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
-                                TUTORLINK
-                            </span>
+                            <img
+                                src="Assets/Logo/logo.png"
+                                alt=""
+                                className="w-50 h-10"
+                            />
                         </div>
                     </div>
                 </div>

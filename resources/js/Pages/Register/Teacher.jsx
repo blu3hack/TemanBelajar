@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-    User,
-    MapPin,
-    Calendar,
-    Phone,
-    BookOpen,
-    Award,
-    GraduationCap,
-} from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import { useForm, usePage } from "@inertiajs/react";
 import ButtonRegister from "./ButtonRegister";
 import FormPersonalMentor from "./FormPersonalMentor";
 import FormAcademicMentor from "./FormAcademicMentor";
+import FormModeMentoring from "./FormModeMentoring";
 
 function Teacher() {
     // useform data
@@ -34,13 +27,11 @@ function Teacher() {
         year_graduate: "",
         skill_apply: [],
         train_experience: "",
-        certificate: "",
+        certificate: null,
         available_day_training: [],
         available_time: [],
         training_mode: [],
-        platform_pay: "",
-        no_platform_pay: "",
-        name_platform_pay: "",
+        school_grade: [],
     });
 
     useEffect(() => {
@@ -89,6 +80,11 @@ function Teacher() {
                         errors={errors}
                     />
                     <FormAcademicMentor
+                        data={data}
+                        setData={setData}
+                        errors={errors}
+                    />
+                    <FormModeMentoring
                         data={data}
                         setData={setData}
                         errors={errors}
