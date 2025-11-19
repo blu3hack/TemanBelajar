@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 
 class CreateMentorController extends Controller
 {
@@ -43,8 +42,9 @@ class CreateMentorController extends Controller
         DB::beginTransaction();
 
         try {
-            // === Insert ke tabel data_active_mentor_tables ===
-            $mentorId = DB::table('data_active_mentor_tables')->insertGetId([
+
+            // Insert ke tabel data_active_mentor_tables
+            DB::table('data_active_mentor_tables')->insert([
                 'id' => Str::uuid()->toString(),
                 'token' => $request->token,
                 'name' => $request->name,
@@ -71,7 +71,7 @@ class CreateMentorController extends Controller
                 'updated_at' => now(),
             ]);
 
-            // === Insert ke tabel Whatsapp_otp ===
+            // Insert OTP
             $otp = mt_rand(100000, 999999);
             DB::table('whatsapp_otp')->insert([
                 'id' => Str::uuid()->toString(),
@@ -85,7 +85,11 @@ class CreateMentorController extends Controller
 
             DB::commit();
 
-            return back()->with('success', 'Mentor berhasil disimpan! OTP: ' . $otp);
+            // ⛔ GANTI WITH() MENJADI SESSION PUT()
+            session()->put('token', $request->token);
+            session()->put('name', $request->name);
+            session()->put('no_wa', $request->phone_number);
+            return redirect()->route('send-wa');
 
         } catch (\Exception $e) {
             DB::rollBack();

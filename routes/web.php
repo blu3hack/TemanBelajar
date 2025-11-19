@@ -38,6 +38,7 @@ Route::get('/send-wa', [FonnteCOntroller::class, 'send'])->name('send.wsa');
 
 Route::post('/create-mentor', [CreateMentorController::class, 'store'])->name('create.mentor');
 Route::post('/create-student', [CreateStudentController::class, 'store'])->name('create.student');
-Route::get('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'SendWAVerification'])->name('send-wsa');
+Route::get('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'SendWAVerification'])->name('send-wa');
+Route::post('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'verifyOtp'])->name('verify-wa');
 
 require __DIR__.'/auth.php';
