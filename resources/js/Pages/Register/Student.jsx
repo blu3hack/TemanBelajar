@@ -24,6 +24,7 @@ function Student() {
         school_from: "",
         vacation: "",
         year_graduate: "",
+        role: "",
     });
 
     useEffect(() => {
@@ -31,6 +32,7 @@ function Student() {
             setData("token", user.token);
             setData("name", user.name);
             setData("email", user.email);
+            setData("role", "student");
         }
     }, [user]);
 

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\HomeView\HomeController;
 use App\Http\Controllers\Notification\FonnteCOntroller;
+use App\Http\Controllers\Payment\CoursePaymentController;
+use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Register\CreateMentorController;
 use App\Http\Controllers\Register\CreateStudentController;
@@ -40,5 +42,10 @@ Route::post('/create-mentor', [CreateMentorController::class, 'store'])->name('c
 Route::post('/create-student', [CreateStudentController::class, 'store'])->name('create.student');
 Route::get('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'SendWAVerification'])->name('send-wa');
 Route::post('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'verifyOtp'])->name('verify-wa');
+
+
+Route::post('/payment', [PaymentController::class, 'create'])->name('create-payment');
+Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('callback-payment');
+Route::get('/course-payment', [CoursePaymentController::class, 'Payment'])->name('course-payment');
 
 require __DIR__.'/auth.php';

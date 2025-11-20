@@ -42,7 +42,6 @@ class CreateMentorController extends Controller
         DB::beginTransaction();
 
         try {
-
             // Insert ke tabel data_active_mentor_tables
             DB::table('data_active_mentor_tables')->insert([
                 'id' => Str::uuid()->toString(),
@@ -83,12 +82,22 @@ class CreateMentorController extends Controller
                 'updated_at' => now(),
             ]);
 
-            DB::commit();
+            // Insert Role
+            DB::table('role_management_user')->insert([
+                'id' => Str::uuid()->toString(),
+                'token' => $request->token,
+                'name' => $request->name,
+                'role' => $request->role,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
 
+            DB::commit();
             // ⛔ GANTI WITH() MENJADI SESSION PUT()
             session()->put('token', $request->token);
             session()->put('name', $request->name);
             session()->put('no_wa', $request->phone_number);
+            session()->put('role', $request->role);
             return redirect()->route('send-wa');
 
         } catch (\Exception $e) {

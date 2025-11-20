@@ -18,14 +18,14 @@ function MainStats({
                 <StatsCard
                     label={label1}
                     icon={icon1}
-                    color="orange"
+                    color="cyan"
                     streak={streak}
                 />
 
                 <StatsCard
                     label={label2}
                     icon={icon2}
-                    color="yellow"
+                    color="cyan"
                     streak={rank}
                 />
 

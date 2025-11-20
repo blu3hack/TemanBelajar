@@ -50,6 +50,16 @@ class WhatsappVerificationController extends Controller
         if (!$check) {
             return back()->with('error', 'OTP salah atau tidak ditemukan');
         }
-        return redirect()->route('home.student')->with('success', 'Verifikasi berhasil!');
+
+        $role = DB::table('role_management_user')
+            ->select('role')
+            ->where('token', $request->token)
+            ->get();
+
+        if($role == 'mentor') {
+            return redirect()->route('home.tentor')->with('success', 'Verifikasi berhasil!');
+        }else {
+             return redirect()->route('home.student')->with('success', 'Verifikasi berhasil!');
+        }
     }
 }

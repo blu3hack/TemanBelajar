@@ -32,6 +32,7 @@ function Teacher() {
         available_time: [],
         training_mode: [],
         school_grade: [],
+        role: "",
     });
 
     useEffect(() => {
@@ -39,6 +40,7 @@ function Teacher() {
             setData("token", user.token);
             setData("name", user.name);
             setData("email", user.email);
+            setData("role", "mentor");
         }
     }, [user]);
 

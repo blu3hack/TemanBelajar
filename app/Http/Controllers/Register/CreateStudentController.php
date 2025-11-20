@@ -59,6 +59,16 @@ class CreateStudentController extends Controller
                 'updated_at' => now(),
             ]);
 
+            // Insert Role
+            DB::table('role_management_user')->insert([
+                'id' => Str::uuid()->toString(),
+                'token' => $request->token,
+                'name' => $request->name,
+                'role' => $request->role,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
             DB::commit();
 
             // ⛔ GANTI WITH() MENJADI SESSION PUT()

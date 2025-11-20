@@ -10,7 +10,7 @@ class WhatsappSendOTPController extends Controller
     public function send()
     {
         
-        $target = '6282266002221'; // Nomor WA tujuan (tanpa tanda +)
+        $target = '6285755006403'; // Nomor WA tujuan (tanpa tanda +)
         $message = 'Halo, ini pesan otomatis dari TemanBelajar.id! 🚀';
 
         $result = FonnteService::sendMessage($target, $message);
