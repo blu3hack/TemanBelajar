@@ -12,7 +12,11 @@ class WhatsappVerificationController extends Controller
 {
     public function SendWAVerification(Request $request) {
         $target = session('no_wa'); // Ambil nomor WA dari session
-        $message = 'Halo ' . session('name') . ' ini otp kamu *' . session('otp') . '* Jangan bagikan ke siapapun';
+        $otp = DB::table('whatsapp_otp')
+            ->select('otp')
+            ->where('token', $request->token)
+            ->get();
+        $message = 'Halo ' . session('name') . ' ini otp kamu *' . $otp . '* Jangan bagikan ke siapapun';
 
         $result = FonnteService::sendMessage($target, $message);
 
@@ -22,7 +26,7 @@ class WhatsappVerificationController extends Controller
             'token'   => session('token'),
             'name'    => session('name'),
             'no_wa'   => session('no_wa'),
-            'success' => session('success'), 
+            'success' => session('success'),
         ]);
     }
 
