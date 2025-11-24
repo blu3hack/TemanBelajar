@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Register;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\FonnteService;
@@ -34,7 +33,6 @@ class WhatsappVerificationController extends Controller
             'success' => session('success'),
         ]);
     }
-
 
     public function verifyOtp(Request $request)
     {

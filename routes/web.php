@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassRoom\MakeClassController;
 use App\Http\Controllers\HomeView\HomeController;
 use App\Http\Controllers\Notification\FonnteCOntroller;
 use App\Http\Controllers\Payment\CoursePaymentController;
@@ -48,4 +49,7 @@ Route::post('/payment', [PaymentController::class, 'create'])->name('create-paym
 Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('callback-payment');
 Route::get('/course-payment', [CoursePaymentController::class, 'Payment'])->name('course-payment');
 
+// make classroom
+// Route::get('/make-classroom', [MakeClassController::class, 'ClassGroup'])->name('make-class');
+Route::get('/rule-classroom', [MakeClassController::class, 'RuleClass'])->name('rule-class');
 require __DIR__.'/auth.php';
