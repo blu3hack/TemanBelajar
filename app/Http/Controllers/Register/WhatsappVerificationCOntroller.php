@@ -14,10 +14,12 @@ class WhatsappVerificationController extends Controller
     {
         $target = session('no_wa'); 
 
-        // Ambil OTP dalam bentuk string
+        // Ambil OTP sebagai string
         $otp = DB::table('whatsapp_otp')
-                ->where('token', $request->token)
+                ->where('token', session('token'))
                 ->value('otp');
+
+        dd(session('no_wa')); // cek dulu
 
         $message = 'Halo ' . session('name') . ', ini OTP kamu *' . $otp . '*. Jangan bagikan ke siapapun';
 
@@ -32,6 +34,7 @@ class WhatsappVerificationController extends Controller
             'success' => session('success'),
         ]);
     }
+
 
     public function verifyOtp(Request $request)
     {
