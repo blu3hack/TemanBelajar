@@ -10,13 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class WhatsappVerificationController extends Controller
 {
-    public function SendWAVerification(Request $request) {
-        $target = session('no_wa'); // Ambil nomor WA dari session
+    public function SendWAVerification(Request $request)
+    {
+        $target = session('no_wa'); 
+
+        // Ambil OTP dalam bentuk string
         $otp = DB::table('whatsapp_otp')
-            ->select('otp')
-            ->where('token', $request->token)
-            ->get();
-        $message = 'Halo ' . session('name') . ' ini otp kamu *' . $otp . '* Jangan bagikan ke siapapun';
+                ->where('token', $request->token)
+                ->value('otp');
+
+        $message = 'Halo ' . session('name') . ', ini OTP kamu *' . $otp . '*. Jangan bagikan ke siapapun';
 
         $result = FonnteService::sendMessage($target, $message);
 
