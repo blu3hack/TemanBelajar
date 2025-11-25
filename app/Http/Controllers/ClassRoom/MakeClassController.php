@@ -8,6 +8,10 @@ use Inertia\Inertia;
 class MakeClassController extends Controller
 {
     public function RuleClass() {
-        return Inertia::render('ClassRoom/MakeClass');
+        return Inertia::render('ClassRoom/RuleClass');
+    }
+
+    public function GroupClass() {
+        return Inertia::render('ClassRoom/GroupClass');
     }
 }

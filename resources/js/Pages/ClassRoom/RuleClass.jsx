@@ -10,7 +10,7 @@ import {
     TrendingUp,
 } from "lucide-react";
 
-function MakeClass() {
+function RuleClass() {
     const [selectedCard, setSelectedCard] = useState(null);
 
     const classTypes = [
@@ -485,4 +485,4 @@ function MakeClass() {
     );
 }
 
-export default MakeClass;
+export default RuleClass;

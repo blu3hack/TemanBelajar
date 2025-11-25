@@ -50,6 +50,6 @@ Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('
 Route::get('/course-payment', [CoursePaymentController::class, 'Payment'])->name('course-payment');
 
 // make classroom
-// Route::get('/make-classroom', [MakeClassController::class, 'ClassGroup'])->name('make-class');
+Route::get('/group-classroom', [MakeClassController::class, 'GroupClass'])->name('group-class');
 Route::get('/rule-classroom', [MakeClassController::class, 'RuleClass'])->name('rule-class');
 require __DIR__.'/auth.php';
