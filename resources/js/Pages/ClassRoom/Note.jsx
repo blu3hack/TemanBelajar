@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { usePage, useForm } from "@inertiajs/react";
+import React, { useState } from "react";
 import {
     BookOpen,
     Calendar,
@@ -20,11 +19,10 @@ import InputSelection from "./FormComponent/InputSelection";
 function GroupClass() {
     const user = usePage().props.auth.user;
     const { flash = {} } = usePage().props;
-
-    const { data, setData, post, processing, errors } = useForm({
+    const [formData, setFormData] = useState({
         token: "",
         nameclass: "",
-        lesson: "",
+        lesson: [],
         describe: "",
         price: "",
         duration: "",
@@ -39,13 +37,37 @@ function GroupClass() {
         }
     }, [user]);
 
+    const [previewImage, setPreviewImage] = useState(null);
     const handleChange = (e) => {
-        setData(e.target.name, e.target.value);
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFormData((prev) => ({
+                ...prev,
+                gambar: file,
+            }));
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/create-group");
+
+        post("/create-student", {
+            forceFormData: true,
+        });
     };
 
     return (
@@ -63,7 +85,6 @@ function GroupClass() {
                         {/* Nama Kelas */}
                         <InputLongText
                             type="text"
-                            value={data.nameclass}
                             icon={BookOpen}
                             label="Nama Kelas"
                             name="nameclass"
@@ -85,7 +106,7 @@ function GroupClass() {
                                 label="Kategori Pelajaran"
                                 name="lesson"
                                 type="text"
-                                value={data.lesson}
+                                value={formData.lesson}
                                 onChange={handleChange}
                                 options={[
                                     "Matematika",
@@ -102,7 +123,7 @@ function GroupClass() {
                                 label="Harga satu pertemuan"
                                 name="price"
                                 type="number"
-                                value={data.price}
+                                value={formData.price}
                                 onChange={handleChange}
                                 options={[50000, 65000, 75000, 100000]}
                                 color="green"
@@ -114,7 +135,7 @@ function GroupClass() {
                                 label="Durasi (Jam)"
                                 name="duration"
                                 type="text"
-                                value={data.duration}
+                                value={formData.duration}
                                 onChange={handleChange}
                                 options={[
                                     "60 menit",
@@ -131,7 +152,7 @@ function GroupClass() {
                                 label="Jumlah Pertemuan"
                                 name="total_meet"
                                 type="text"
-                                value={data.total_meet}
+                                value={formData.total_meet}
                                 onChange={handleChange}
                                 options={[
                                     "2 kali per bulan",
@@ -148,7 +169,7 @@ function GroupClass() {
                                 label="Pelaksanaan"
                                 type="datetime-local"
                                 name="startdate"
-                                value={data.startdate}
+                                value={formData.startdate}
                                 onChange={handleChange}
                                 color="green"
                             />
@@ -158,7 +179,7 @@ function GroupClass() {
                                 icon={School}
                                 label="Audience"
                                 name="audience"
-                                value={data.audience}
+                                value={formData.audience}
                                 onChange={handleChange}
                                 options={["SD", "SMP", "SMA", "Umum"]}
                                 color="green"
@@ -169,11 +190,10 @@ function GroupClass() {
                         <Describe
                             label="Ceritakan Tentang Kelasmu"
                             name="describe"
-                            value={data.describe}
+                            value={formData.describe}
                             onChange={handleChange}
                             placeholder="Apa yang seru dari kelas ini? Apa yang akan dipelajari teman-teman? 🚀"
                         />
-                        <input type="hidden" name="token" value={data.token} />
 
                         {/* Submit Button */}
                         <ButtonClass

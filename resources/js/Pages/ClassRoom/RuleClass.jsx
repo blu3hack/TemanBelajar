@@ -28,17 +28,17 @@ function RuleClass() {
             rules: [
                 {
                     label: "Pembagian Hasil",
-                    value: "Instruktur 70% | Platform 30%",
+                    value: "Sesuai Kesepakatan awal",
                 },
                 { label: "Durasi Sesi", value: "60-90 menit/pertemuan" },
                 { label: "Minimal Pertemuan", value: "4 sesi per bulan" },
                 { label: "Biaya Reschedule", value: "Gratis (H-24)" },
             ],
             criteria: [
-                "Instruktur bersertifikat minimal 2 tahun pengalaman",
+                "Instruktur berpengalaman dalam membimbing private",
                 "Materi disesuaikan dengan kebutuhan siswa",
-                "Laporan progress setiap 2 minggu",
-                "Garansi uang kembali jika tidak puas (sesi pertama)",
+                "Disediakan pamlet, flayer setiap membuat kelas",
+                "Disediakan Template Powerpoint Penunjang Pengajaran",
             ],
         },
         {
@@ -55,7 +55,7 @@ function RuleClass() {
             rules: [
                 {
                     label: "Pembagian Hasil",
-                    value: "Instruktur 60% | Platform 40%",
+                    value: "Sesuai Kesepakatan awal",
                 },
                 { label: "Kapasitas Kelas", value: "5-15 siswa per kelas" },
                 { label: "Durasi Sesi", value: "90-120 menit/pertemuan" },
@@ -64,8 +64,9 @@ function RuleClass() {
             criteria: [
                 "Instruktur memiliki pengalaman mengajar grup",
                 "Silabus terstruktur dengan timeline jelas",
-                "Sesi Q&A 15 menit setiap pertemuan",
-                "Grup WhatsApp/Telegram untuk diskusi",
+                "Disediakan pamlet, flayer setiap membuat kelas",
+                "Disediakan Template Powerpoint Penunjang Pengajaran",
+                "Disediakan Link Zoom",
             ],
         },
         {
@@ -82,7 +83,7 @@ function RuleClass() {
             rules: [
                 {
                     label: "Pembagian Hasil",
-                    value: "Instruktur 65% | Platform 35%",
+                    value: "Sesuai Kesepakatan awal",
                 },
                 { label: "Durasi Program", value: "1-3 hari (intensif)" },
                 { label: "Kapasitas Kelas", value: "10-30 peserta" },
@@ -92,35 +93,9 @@ function RuleClass() {
                 "Materi hands-on dengan studi kasus nyata",
                 "Minimal 80% praktik dari total durasi",
                 "E-certificate diberikan setelah selesai",
-                "Rekaman sesi tersedia 30 hari",
-            ],
-        },
-        {
-            id: 4,
-            icon: Package,
-            title: "Paket",
-            color: "from-orange-500 to-orange-600",
-            bgLight: "bg-orange-50",
-            borderColor: "border-orange-200",
-            accentColor: "text-orange-600",
-            description:
-                "Bundel pembelajaran komprehensif dengan harga spesial",
-            badge: "Best Value",
-            badgeColor: "bg-orange-500",
-            rules: [
-                {
-                    label: "Pembagian Hasil",
-                    value: "Instruktur 65% | Platform 35%",
-                },
-                { label: "Durasi Akses", value: "3-12 bulan akses penuh" },
-                { label: "Konten Bundle", value: "Video + Live + Modul" },
-                { label: "Diskon Bundle", value: "15-30% dari harga satuan" },
-            ],
-            criteria: [
-                "Minimal 20 video pembelajaran berkualitas HD",
-                "2-4 live session per bulan",
-                "Modul PDF dan source code lengkap",
-                "Akses ke komunitas eksklusif alumni",
+                "Disediakan pamlet, flayer setiap membuat kelas",
+                "Disediakan Template Powerpoint Penunjang Pengajaran",
+                "Disediakan Link Zoom",
             ],
         },
     ];
@@ -140,7 +115,7 @@ function RuleClass() {
                 </div>
 
                 {/* Cards Grid - Fixed Height */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                     {classTypes.map((classType) => {
                         const Icon = classType.icon;
                         const isSelected = selectedCard === classType.id;
@@ -323,7 +298,6 @@ function RuleClass() {
                                                             </div>
                                                             <span className="text-sm sm:text-base md:text-xl">
                                                                 Persyaratan
-                                                                Instruktur
                                                             </span>
                                                         </h3>
                                                         <ul className="space-y-2.5 sm:space-y-3">
@@ -360,7 +334,7 @@ function RuleClass() {
                                                                 <Check className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                                                             </div>
                                                             <span className="text-sm sm:text-base md:text-xl">
-                                                                Fasilitas Siswa
+                                                                Fasilitas
                                                             </span>
                                                         </h3>
                                                         <ul className="space-y-2.5 sm:space-y-3">
@@ -402,13 +376,13 @@ function RuleClass() {
                                                 >
                                                     <div className="flex gap-2.5 sm:gap-3">
                                                         <Sparkles
-                                                            className={`w-5 h-5 sm:w-6 sm:h-6 ${classType.accentColor} flex-shrink-0 mt-0.5 sm:mt-1`}
+                                                            className={`w-5 h-5 sm:w-6 sm:h-6 ${classType.accentColor} flex-shrink-0 mt-0.5 sm:mt-1 text-white`}
                                                         />
                                                         <div>
-                                                            <p className="text-gray-800 font-semibold mb-1.5 sm:mb-2 text-sm sm:text-base">
+                                                            <p className="text-white font-semibold mb-1.5 sm:mb-2 text-sm sm:text-base">
                                                                 Catatan Penting
                                                             </p>
-                                                            <p className="text-gray-700 leading-relaxed text-xs sm:text-sm md:text-base">
+                                                            <p className="text-white leading-relaxed text-xs sm:text-sm md:text-base">
                                                                 Semua instruktur
                                                                 wajib melalui
                                                                 proses
@@ -417,11 +391,6 @@ function RuleClass() {
                                                                 platform sebelum
                                                                 dapat membuka
                                                                 kelas.
-                                                                Pelanggaran SOP
-                                                                dapat
-                                                                mengakibatkan
-                                                                penangguhan
-                                                                akun.
                                                             </p>
                                                         </div>
                                                     </div>

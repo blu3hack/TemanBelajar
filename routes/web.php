@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClassRoom\MakeClassController;
+use App\Http\Controllers\ClassRoom\MakeGroupController;
+use App\Http\Controllers\ClassRoom\MakePrivateController;
 use App\Http\Controllers\HomeView\HomeController;
 use App\Http\Controllers\Notification\FonnteCOntroller;
 use App\Http\Controllers\Payment\CoursePaymentController;
@@ -51,5 +53,8 @@ Route::get('/course-payment', [CoursePaymentController::class, 'Payment'])->name
 
 // make classroom
 Route::get('/group-classroom', [MakeClassController::class, 'GroupClass'])->name('group-class');
+Route::post('/create-group', [MakeGroupController::class, 'GroupClassStore'])->name('create-group');
+Route::get('/private-classroom', [MakeClassController::class, 'PrivateClass'])->name('private-class');
+Route::post('/create-private', [MakePrivateController::class, 'PrivateClassStore'])->name('create-private');
 Route::get('/rule-classroom', [MakeClassController::class, 'RuleClass'])->name('rule-class');
 require __DIR__.'/auth.php';

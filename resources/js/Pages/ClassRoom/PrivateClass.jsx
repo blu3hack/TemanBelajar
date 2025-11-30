@@ -17,7 +17,7 @@ import Describe from "./FormComponent/Describe";
 import ButtonClass from "./FormComponent/ButtonClass";
 import InputSelection from "./FormComponent/InputSelection";
 
-function GroupClass() {
+function PrivateClass() {
     const user = usePage().props.auth.user;
     const { flash = {} } = usePage().props;
 
@@ -45,7 +45,7 @@ function GroupClass() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/create-group");
+        post("/create-private");
     };
 
     return (
@@ -53,7 +53,7 @@ function GroupClass() {
             <div className="max-w-4xl mx-auto">
                 {/* Header dengan Dekorasi */}
                 <Tagline
-                    tagline="Buat Group Kelas"
+                    tagline="Buat Kelas Private"
                     label="Bagikan ilmu kamu ke teman-teman"
                 />
 
@@ -186,4 +186,4 @@ function GroupClass() {
         </div>
     );
 }
-export default GroupClass;
+export default PrivateClass;

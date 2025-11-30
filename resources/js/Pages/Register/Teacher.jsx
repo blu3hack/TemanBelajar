@@ -86,16 +86,10 @@ function Teacher() {
                         setData={setData}
                         errors={errors}
                     />
-                    <FormModeMentoring
-                        data={data}
-                        setData={setData}
-                        errors={errors}
-                    />
                 </div>
                 <ButtonRegister handleSubmit={handleSubmit} />
             </div>
         </div>
     );
 }
-
 export default Teacher;
