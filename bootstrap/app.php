@@ -11,13 +11,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+
+        // Tambahkan pengecualian CSRF di sini
+        $middleware->validateCsrfTokens(except: [
+            '/payment/callback',
+        ]);
+
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
-
-        //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
-    })->create();
+        // Tidak perlu menaruh except di sini
+    })
+    ->create();

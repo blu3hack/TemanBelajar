@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClassRoom\MakeClassController;
 use App\Http\Controllers\ClassRoom\MakeGroupController;
 use App\Http\Controllers\ClassRoom\MakePrivateController;
+use App\Http\Controllers\Explore\ClassroomExploreController;
 use App\Http\Controllers\HomeView\HomeController;
 use App\Http\Controllers\Notification\FonnteCOntroller;
 use App\Http\Controllers\Payment\CoursePaymentController;
@@ -15,8 +16,6 @@ use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\Register\WhatsappVerificationCOntroller;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -52,7 +51,16 @@ Route::post('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'v
 
 
 Route::post('/payment', [PaymentController::class, 'create'])->name('create-payment');
-Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('callback-payment');
+// Callback POST dari Midtrans (notification)
+Route::post('/payment/callback', [PaymentController::class, 'callback'])
+    ->name('midtrans.callback');
+
+// Redirect GET setelah user selesai bayar
+Route::get('/payment/callback', function () {
+    return redirect('/course-payment');  
+    // atau halaman terima kasih
+});
+
 Route::get('/course-payment', [CoursePaymentController::class, 'Payment'])->name('course-payment');
 
 // make classroom
@@ -65,5 +73,8 @@ Route::get('/rule-classroom', [MakeClassController::class, 'RuleClass'])->name('
 Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
+// Explore Room
+Route::get('/explore', [ClassroomExploreController::class, 'Explore'])->name('explore-class');
+Route::post('/create-explore', [ClassroomExploreController::class, 'CreateExploreCLass'])->name('create-explore-class');
 
 require __DIR__.'/auth.php';

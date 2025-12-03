@@ -185,12 +185,7 @@ export default function TutoringPlatform() {
                         </div>
 
                         <div className="hidden md:flex items-center space-x-8">
-                            <a href="/login">
-                                <button className="px-4 py-2 text-blue-500 border border-blue-500 rounded-full hover:bg-blue-50 transition">
-                                    Masuk
-                                </button>
-                            </a>
-                            <a href="/register">
+                            <a href="/login/google">
                                 <button className="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-full hover:shadow-lg transition transform hover:-translate-y-0.5">
                                     Daftar Gratis
                                 </button>
