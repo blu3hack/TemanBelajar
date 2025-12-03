@@ -21,6 +21,8 @@ class User extends Authenticatable implements MustVerifyEmail // tambahkan inter
         'token',
         'email',
         'password',
+        'google_id',
+        'avatar',
     ];
 
     /**

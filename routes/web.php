@@ -10,10 +10,14 @@ use App\Http\Controllers\Payment\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Register\CreateMentorController;
 use App\Http\Controllers\Register\CreateStudentController;
+use App\Http\Controllers\Register\GoogleController;
 use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\Register\WhatsappVerificationCOntroller;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -57,4 +61,9 @@ Route::post('/create-group', [MakeGroupController::class, 'GroupClassStore'])->n
 Route::get('/private-classroom', [MakeClassController::class, 'PrivateClass'])->name('private-class');
 Route::post('/create-private', [MakePrivateController::class, 'PrivateClassStore'])->name('create-private');
 Route::get('/rule-classroom', [MakeClassController::class, 'RuleClass'])->name('rule-class');
+
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+
 require __DIR__.'/auth.php';
