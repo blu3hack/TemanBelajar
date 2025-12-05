@@ -16,6 +16,7 @@ import InputShortText from "./FormComponent/InputShortText";
 import Describe from "./FormComponent/Describe";
 import ButtonClass from "./FormComponent/ButtonClass";
 import InputSelection from "./FormComponent/InputSelection";
+import Student from "../Register/Student";
 
 function GroupClass() {
     const user = usePage().props.auth.user;
@@ -23,10 +24,15 @@ function GroupClass() {
 
     const { data, setData, post, processing, errors } = useForm({
         token: "",
-        nameclass: "",
+        title: "",
+        instructor: "",
+        students: "",
+        image: "",
+        price: "",
+        level: "",
+        badge: "",
         lesson: "",
         describe: "",
-        price: "",
         duration: "",
         startdate: "",
         audience: "",
@@ -36,6 +42,11 @@ function GroupClass() {
     useEffect(() => {
         if (user) {
             setData("token", user.token);
+            setData("instructor", user.name);
+            setData("level", "group");
+            setData("image", "");
+            setData("students", "");
+            setData("badge", "Terbaru");
         }
     }, [user]);
 
@@ -45,7 +56,7 @@ function GroupClass() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post("/create-group");
+        post("/create-explore");
     };
 
     return (
@@ -53,7 +64,7 @@ function GroupClass() {
             <div className="max-w-4xl mx-auto">
                 {/* Header dengan Dekorasi */}
                 <Tagline
-                    tagline="Buat Group Kelas"
+                    tagline="Buat Kelas Private"
                     label="Bagikan ilmu kamu ke teman-teman"
                 />
 
@@ -63,10 +74,10 @@ function GroupClass() {
                         {/* Nama Kelas */}
                         <InputLongText
                             type="text"
-                            value={data.nameclass}
+                            value={data.title}
                             icon={BookOpen}
                             label="Nama Kelas"
-                            name="nameclass"
+                            name="title"
                             onChange={handleChange}
                             placeholder="Contoh: Matematika Seru buat Kelas 7 😊"
                         />

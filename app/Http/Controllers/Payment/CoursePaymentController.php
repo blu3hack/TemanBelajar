@@ -4,17 +4,47 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class CoursePaymentController extends Controller
 {
-   public function Payment() {
+    public function Payment($classroom_id, $token)
+    {
+        $transaction_payment = DB::table('transaction_payment')
+            ->where('classroom_id', $classroom_id)
+            ->where('token', $token)
+            ->first(); // ambil satu data
+
         return Inertia::render('Payment/CoursePayment', [
-            'name' => "Bayu Jaya",
-            'amount' => 750000,
-            'email' => "ariesofyan55@gmail.com",
-            'no_wa' => "+6281237885206",
+            'instructor' => $transaction_payment->instructor ?? null,
+            'name' => $transaction_payment->name ?? null,
+            'title' => $transaction_payment->title ?? null,
+            'amount' => $transaction_payment->amount ?? null,
+            'no_wa' => '081234567890',
         ]);
     }
+
+
+    public function store(Request $request)
+    {
+        // contoh insert ke database
+        DB::table('transaction_payment')->insert([
+            'classroom_id' => $request->classroom_id,
+            'token' => $request->token,
+            'title' => $request->title,
+            'instructor' => $request->instructor,
+            'name' => $request->name,
+            'amount' => $request->amount,
+            'created_at' => now(),
+        ]);
+
+        // redirect ke halaman pembayaran atau sukses
+        return redirect()->route('course-payment',
+            ['classroom_id' => $request->classroom_id,
+             'token' => $request->token])
+        ->with('success', 'Pendaftaran berhasil!');
+    }
+
 }
 

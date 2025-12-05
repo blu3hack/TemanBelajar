@@ -61,7 +61,8 @@ Route::get('/payment/callback', function () {
     // atau halaman terima kasih
 });
 
-Route::get('/course-payment', [CoursePaymentController::class, 'Payment'])->name('course-payment');
+Route::post('/checkout', [CoursePaymentController::class, 'store'])->name('checkout.store');
+Route::get('/course-payment/{classroom_id}/{token}', [CoursePaymentController::class, 'Payment'])->name('course-payment');
 
 // make classroom
 Route::get('/group-classroom', [MakeClassController::class, 'GroupClass'])->name('group-class');

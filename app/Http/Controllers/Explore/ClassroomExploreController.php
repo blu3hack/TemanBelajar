@@ -11,19 +11,33 @@ use Inertia\Inertia;
 class ClassroomExploreController extends Controller
 {
     public function Explore() {
-        return Inertia::render('Explore/ClassroomExplore');
+        $explore_class = DB::table('explore_class')->get();
+
+        return Inertia::render('Explore/ClassroomExplore', [
+            'explore_class' => $explore_class
+        ]);
     }
 
+
     public function CreateExploreCLass(Request $request) {
+        $parts = explode(' ', $request->total_meet);
+        $total_meet = $parts[0];
+        $total_price = $request->price * $total_meet;
+        $level = $request->level;
+
+        $classroom_id = "CLASS-" . time() . $level . "-focuz.id";
+
         try {
             DB::table('explore_class')->insert([
             'token' => $request->token,
+            'classroom_id' => $classroom_id,
             'title' => $request->title,
             'instructor' => $request->instructor,
             'students' => $request->students,
             'image' => $request->image,
             'price' => $request->price,
-            'level' => $request->level,
+            'total_price' => $total_price,
+            'level' => $level,
             'badge' => $request->badge,
             'lesson' => $request->lesson,
             'describe' => $request->describe,
@@ -32,8 +46,6 @@ class ClassroomExploreController extends Controller
             'audience' => $request->audience,
             'total_meet' => $request->total_meet,
         ]);
-
-
             return redirect()->back()->with('success', 'Kelas berhasil dibuat!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
