@@ -3,7 +3,8 @@ import { router, usePage } from "@inertiajs/react";
 import { Shield, Lock, ArrowRight, Tag, Users, BookOpen } from "lucide-react";
 
 export default function CoursePayment() {
-    const { flash, name, amount, email, no_wa } = usePage().props;
+    const { flash, name, amount, email, no_wa, title, instructor } =
+        usePage().props;
     const [loading, setLoading] = useState(false);
 
     // Load Snap.js
@@ -93,16 +94,18 @@ export default function CoursePayment() {
                                 {/* Course Info */}
                                 <div className="flex-1">
                                     <h3 className="text-lg font-bold text-slate-800 mb-2">
-                                        Master Web Development Course
+                                        {title}
                                     </h3>
                                     <p className="text-sm text-slate-500 mb-3">
-                                        Akses selamanya • 120+ Video •
-                                        Sertifikat
+                                        by {instructor}
                                     </p>
 
                                     <div className="flex items-center gap-3">
                                         <span className="text-2xl font-bold text-blue-600">
-                                            Rp {amount}
+                                            Rp.{" "}
+                                            {Number(amount).toLocaleString(
+                                                "id-ID"
+                                            )}
                                         </span>
                                     </div>
                                 </div>
@@ -157,7 +160,8 @@ export default function CoursePayment() {
                                         Harga Kursus
                                     </span>
                                     <span className="font-semibold text-slate-800">
-                                        Rp {amount}
+                                        Rp.{" "}
+                                        {Number(amount).toLocaleString("id-ID")}
                                     </span>
                                 </div>
 
@@ -196,7 +200,8 @@ export default function CoursePayment() {
                                         Total
                                     </span>
                                     <span className="text-xl font-bold text-blue-600">
-                                        Rp {amount}
+                                        Rp.{" "}
+                                        {Number(amount).toLocaleString("id-ID")}
                                     </span>
                                 </div>
                             </div>

@@ -209,7 +209,7 @@ function ClassroomExplore() {
                                 </h2>
                                 <p className="text-base sm:text-lg text-gray-600 font-semibold flex items-center gap-2">
                                     <BookOpen className="w-5 h-5 text-purple-600" />
-                                    by {selectedCourse.classroom_id}
+                                    by {selectedCourse.instructor}
                                 </p>
                             </div>
 
