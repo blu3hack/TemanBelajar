@@ -8,10 +8,8 @@ export default function VerifyEmail({ status }) {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route("verification.send"));
     };
-
     return (
         <GuestLayout>
             <Head title="Email Verification" />

@@ -18,8 +18,6 @@ class WhatsappVerificationController extends Controller
                 ->where('token', session('token'))
                 ->value('otp');
 
-        dd(session('no_wa')); // cek dulu
-
         $message = 'Halo ' . session('name') . ', ini OTP kamu *' . $otp . '*. Jangan bagikan ke siapapun';
 
         $result = FonnteService::sendMessage($target, $message);
@@ -62,12 +60,23 @@ class WhatsappVerificationController extends Controller
         $role = DB::table('role_management_user')
             ->select('role')
             ->where('token', $request->token)
-            ->get();
+            ->first();
 
-        if($role == 'mentor') {
-            return redirect()->route('home.tentor')->with('success', 'Verifikasi berhasil!');
+        if($role->role == 'mentor') {
+            DB::table('data_active_mentor_tables')
+                ->where('token', $request->token)
+                ->update([
+                   'wa_verified' => 'verified',
+                ]);
+
+            return redirect()->route('dashboard')->with('success', 'Verifikasi berhasil!');
         }else {
-             return redirect()->route('home.student')->with('success', 'Verifikasi berhasil!');
+            DB::table('data_active_student_tables')
+                ->where('token', $request->token)
+                ->update([
+                    'wa_verified' => 'verified',
+                ]);
+            return redirect()->route('explore-class')->with('success', 'Verifikasi berhasil!');
         }
     }
 }

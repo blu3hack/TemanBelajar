@@ -7,14 +7,12 @@ import {
     History,
     Users,
     Settings,
-    Bell,
     Search,
     Plus,
     Clock,
-    MapPin,
     Video,
     Phone,
-    MessageCircle,
+    MessageCircleHeart,
     Star,
     TrendingUp,
     Award,
@@ -22,9 +20,14 @@ import {
     Menu,
     X,
 } from "lucide-react";
+import Link from "@/Layouts/Dashboard/Link";
+import { BookUser } from "lucide-react";
+import { Landmark } from "lucide-react";
 
 const AdminDashboard = () => {
     const user = usePage().props.auth.user;
+    const { schedule_class } = usePage().props;
+    const { status } = usePage().props;
     const [activeMenu, setActiveMenu] = useState("home");
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -95,55 +98,37 @@ const AdminDashboard = () => {
                                     Aksi Cepat
                                 </h3>
                                 <div className="grid grid-cols-4 gap-3">
-                                    <a href="/mentor-register">
-                                        <button className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md active:scale-95 transition-all">
-                                            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                                <Plus
-                                                    className="text-blue-600"
-                                                    size={24}
-                                                />
-                                            </div>
-                                            <span className="text-xs font-medium text-gray-700">
-                                                Daftar Mentor
-                                            </span>
-                                        </button>
-                                    </a>
+                                    {status === "inactive" ? (
+                                        <Link
+                                            link="/mentor-register"
+                                            label="Daftar Mentor"
+                                            icon={BookUser}
+                                        />
+                                    ) : (
+                                        <Link
+                                            link="/rule-classroom"
+                                            label="Buat Kelas"
+                                            icon={Plus}
+                                        />
+                                    )}
 
-                                    <button className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md active:scale-95 transition-all">
-                                        <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                                            <Video
-                                                className="text-green-600"
-                                                size={24}
-                                            />
-                                        </div>
-                                        <span className="text-xs font-medium text-gray-700">
-                                            Meeting
-                                        </span>
-                                    </button>
-                                    <button className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md active:scale-95 transition-all">
-                                        <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                                            <MessageCircle
-                                                className="text-purple-600"
-                                                size={24}
-                                            />
-                                        </div>
-                                        <span className="text-xs font-medium text-gray-700">
-                                            Pesan
-                                        </span>
-                                    </button>
-                                    <a href="/student-register">
-                                        <button className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md active:scale-95 transition-all">
-                                            <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                                                <Search
-                                                    className="text-orange-600"
-                                                    size={24}
-                                                />
-                                            </div>
-                                            <span className="text-xs font-medium text-gray-700">
-                                                Explore Kelas
-                                            </span>
-                                        </button>
-                                    </a>
+                                    <Link
+                                        link="#"
+                                        label="Daftar Meeting"
+                                        icon={Video}
+                                    />
+
+                                    <Link
+                                        link="#"
+                                        label="Chat Admin"
+                                        icon={MessageCircleHeart}
+                                    />
+
+                                    <Link
+                                        link="/explore"
+                                        label="Explore Kelas"
+                                        icon={Landmark}
+                                    />
                                 </div>
                             </div>
 
@@ -184,71 +169,6 @@ const AdminDashboard = () => {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Jadwal Hari Ini */}
-                        <div>
-                            <div className="flex items-center justify-between mb-4 px-1">
-                                <h3 className="text-lg font-bold text-gray-900">
-                                    Jadwal Hari Ini
-                                </h3>
-                                <button className="text-sm text-blue-600 font-medium hover:text-blue-700">
-                                    Lihat Semua
-                                </button>
-                            </div>
-                            <div className="grid lg:grid-cols-2 gap-3">
-                                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-4 border border-blue-100 hover:shadow-md transition-all">
-                                    <div className="flex items-start justify-between mb-3">
-                                        <div className="flex-1">
-                                            <h4 className="font-bold text-gray-900">
-                                                Matematika Dasar
-                                            </h4>
-                                            <p className="text-sm text-gray-600 mt-1">
-                                                Budi Santoso
-                                            </p>
-                                        </div>
-                                        <div className="px-3 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full">
-                                            09:00
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4 text-xs text-gray-600">
-                                        <div className="flex items-center gap-1">
-                                            <MapPin size={14} />
-                                            <span>Online</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <Clock size={14} />
-                                            <span>1.5 jam</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-4 border border-purple-100 hover:shadow-md transition-all">
-                                    <div className="flex items-start justify-between mb-3">
-                                        <div className="flex-1">
-                                            <h4 className="font-bold text-gray-900">
-                                                Bahasa Inggris
-                                            </h4>
-                                            <p className="text-sm text-gray-600 mt-1">
-                                                Ani Wijaya
-                                            </p>
-                                        </div>
-                                        <div className="px-3 py-1 bg-purple-600 text-white text-xs font-semibold rounded-full">
-                                            11:00
-                                        </div>
-                                    </div>
-                                    <div className="flex items-center gap-4 text-xs text-gray-600">
-                                        <div className="flex items-center gap-1">
-                                            <MapPin size={14} />
-                                            <span>Offline</span>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <Clock size={14} />
-                                            <span>2 jam</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 );
 
@@ -282,65 +202,32 @@ const AdminDashboard = () => {
 
                         {/* Jadwal Cards */}
                         <div className="grid lg:grid-cols-2 gap-4">
-                            {[
-                                {
-                                    kelas: "Matematika Dasar",
-                                    siswa: "Budi Santoso",
-                                    waktu: "09:00",
-                                    durasi: "1.5 jam",
-                                    status: "upcoming",
-                                    color: "blue",
-                                },
-                                {
-                                    kelas: "Bahasa Inggris",
-                                    siswa: "Ani Wijaya",
-                                    waktu: "11:00",
-                                    durasi: "2 jam",
-                                    status: "upcoming",
-                                    color: "purple",
-                                },
-                                {
-                                    kelas: "Fisika",
-                                    siswa: "Dian Pratama",
-                                    waktu: "14:00",
-                                    durasi: "1 jam",
-                                    status: "completed",
-                                    color: "green",
-                                },
-                                {
-                                    kelas: "Kimia",
-                                    siswa: "Eka Putri",
-                                    waktu: "16:00",
-                                    durasi: "1.5 jam",
-                                    status: "upcoming",
-                                    color: "orange",
-                                },
-                            ].map((item, idx) => (
+                            {(schedule_class ?? []).map((schedule) => (
                                 <div
-                                    key={idx}
-                                    className={`bg-gradient-to-br from-${item.color}-50 to-${item.color}-100/50 rounded-2xl p-5 border border-${item.color}-200 shadow-sm hover:shadow-md transition-all`}
+                                    key={schedule.id}
+                                    className={`bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-2xl p-5 border border-blue-200 shadow-sm hover:shadow-md transition-all`}
                                 >
                                     <div className="flex items-start justify-between mb-4">
                                         <div className="flex-1">
                                             <h3 className="font-bold text-gray-900 text-lg mb-1">
-                                                {item.kelas}
+                                                {schedule.title}
                                             </h3>
                                             <p className="text-gray-600">
-                                                {item.siswa}
+                                                {schedule.audience}
                                             </p>
                                         </div>
                                         <div
-                                            className={`px-3 py-1 bg-${item.color}-600 text-white text-sm font-bold rounded-full`}
+                                            className={`px-3 py-1 bg-blue-600 text-white text-sm font-bold rounded-full`}
                                         >
-                                            {item.waktu}
+                                            {schedule.startdate}
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1 text-sm text-gray-600">
                                             <Clock size={16} />
-                                            <span>{item.durasi}</span>
+                                            <span>{schedule.duration}</span>
                                         </div>
-                                        {item.status === "upcoming" ? (
+                                        {schedule.status === "upcoming" ? (
                                             <button className="flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700">
                                                 <Phone size={16} />
                                                 Mulai Kelas
@@ -600,9 +487,19 @@ const AdminDashboard = () => {
                         </div>
 
                         {/* Logout Button */}
-                        <button className="w-full lg:w-auto lg:px-8 bg-red-50 text-red-600 font-semibold py-4 rounded-2xl hover:bg-red-100 active:scale-98 transition-all">
-                            Keluar
-                        </button>
+                        <form action="/logout" method="POST">
+                            <input
+                                type="hidden"
+                                name="_token"
+                                value={document
+                                    .querySelector('meta[name="csrf-token"]')
+                                    .getAttribute("content")}
+                            />
+
+                            <button className="w-full lg:w-auto lg:px-8 bg-red-50 text-red-600 font-semibold py-4 rounded-2xl hover:bg-red-100 active:scale-98 transition-all">
+                                Keluar
+                            </button>
+                        </form>
                     </div>
                 );
 
@@ -650,9 +547,19 @@ const AdminDashboard = () => {
                 </nav>
 
                 <div className="pt-6 border-t border-gray-200">
-                    <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-red-600 hover:bg-red-50 transition-all">
-                        <span className="font-semibold">Keluar</span>
-                    </button>
+                    <form action="/logout" method="POST">
+                        <input
+                            type="hidden"
+                            name="_token"
+                            value={document
+                                .querySelector('meta[name="csrf-token"]')
+                                .getAttribute("content")}
+                        />
+
+                        <button className="w-full lg:w-auto lg:px-8 bg-red-50 text-red-600 font-semibold py-4 rounded-2xl hover:bg-red-100 active:scale-98 transition-all">
+                            Keluar
+                        </button>
+                    </form>
                 </div>
             </div>
 

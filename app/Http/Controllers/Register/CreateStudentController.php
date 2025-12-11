@@ -42,10 +42,15 @@ class CreateStudentController extends Controller
                 'school_from' => $request->school_from,
                 'vacation' => $request->vacation,
                 'year_graduate' => $request->year_graduate,
-                'status' => 'inactive',
+                'wa_verified' => 'not verified',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            // Hapus data OTP dan Role lama jika ada
+            DB::table('whatsapp_otp')
+                ->where('token', $request->token)
+                ->delete();
 
             // Insert OTP
             $otp = mt_rand(100000, 999999);
@@ -58,6 +63,11 @@ class CreateStudentController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            // Hapus data OTP dan Role lama jika ada
+            DB::table('role_management_user')
+                ->where('token', $request->token)
+                ->delete();
 
             // Insert Role
             DB::table('role_management_user')->insert([

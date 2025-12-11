@@ -34,9 +34,7 @@ class PaymentController extends Controller
 
     public function callback(Request $request)
     {
-        // Tangkap notifikasi dari Midtrans
-        $data = $request->all();
-        // Simpan status pembayaran ke database jika perlu
-        return response()->json(['message' => 'Callback received']);
+        $server_key = config('midtrans.server_key');
+        $hashed = hash("sha512", $request->order_id . $request->status_code . $request->gross_amount . $server_key);
     }
 }

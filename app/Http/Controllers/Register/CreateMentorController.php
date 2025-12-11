@@ -60,15 +60,16 @@ class CreateMentorController extends Controller
                 'year_graduate' => $request->year_graduate ?? null,
                 'train_experience' => $request->train_experience ?? null,
                 'certificate' => $certificate_name,
-                'skill_apply' => json_encode($request->skill_apply ?? []),
-                'available_day_training' => json_encode($request->available_day_training ?? []),
-                'training_mode' => json_encode($request->training_mode ?? []),
-                'available_time' => json_encode($request->available_time ?? []),
-                'school_grade' => json_encode($request->school_grade ?? []),
                 'status' => 'inactive',
+                'wa_verified' => 'not verified',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            // Hapus data OTP dan Role lama jika ada
+            DB::table('whatsapp_otp')
+                ->where('token', $request->token)
+                ->delete();
 
             // Insert OTP
             $otp = mt_rand(100000, 999999);
@@ -81,6 +82,11 @@ class CreateMentorController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            // Hapus data OTP dan Role lama jika ada
+            DB::table('role_management_user')
+                ->where('token', $request->token)
+                ->delete();
 
             // Insert Role
             DB::table('role_management_user')->insert([

@@ -3,11 +3,13 @@
 use App\Http\Controllers\ClassRoom\MakeClassController;
 use App\Http\Controllers\ClassRoom\MakeGroupController;
 use App\Http\Controllers\ClassRoom\MakePrivateController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Explore\ClassroomExploreController;
 use App\Http\Controllers\HomeView\HomeController;
 use App\Http\Controllers\Notification\FonnteCOntroller;
 use App\Http\Controllers\Payment\CoursePaymentController;
 use App\Http\Controllers\Payment\PaymentController;
+use App\Http\Controllers\Profile\ProfileMentorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Register\CreateMentorController;
 use App\Http\Controllers\Register\CreateStudentController;
@@ -28,9 +30,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'schedule_class'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -77,5 +79,8 @@ Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallba
 // Explore Room
 Route::get('/explore', [ClassroomExploreController::class, 'Explore'])->name('explore-class');
 Route::post('/create-explore', [ClassroomExploreController::class, 'CreateExploreCLass'])->name('create-explore-class');
+
+// Profile Mentor View
+Route::get('/profile-mentor', [ProfileMentorController::class, 'ProfileMentorView'])->name('profile.mentor');
 
 require __DIR__.'/auth.php';

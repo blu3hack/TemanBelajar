@@ -25,7 +25,6 @@ function Teacher() {
         graduate: "",
         vacation: "",
         year_graduate: "",
-        skill_apply: [],
         train_experience: "",
         certificate: null,
         available_day_training: [],
