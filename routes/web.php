@@ -67,14 +67,7 @@ Route::get('/wait-verification', [WaitVerificationController::class, 'WaitVerifi
 
 Route::post('/payment', [PaymentController::class, 'create'])->name('create-payment');
 // Callback POST dari Midtrans (notification)
-Route::post('/payment/callback', [PaymentController::class, 'callback'])
-    ->name('midtrans.callback');
-
-// Redirect GET setelah user selesai bayar
-Route::get('/payment/callback', function () {
-    return redirect('/course-payment');  
-    // atau halaman terima kasih
-});
+Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('midtrans.callback');
 
 Route::post('/checkout', [CoursePaymentController::class, 'store'])->name('checkout.store');
 Route::get('/course-payment/{classroom_id}/{token_mentor}', [CoursePaymentController::class, 'Payment'])->name('course-payment');
