@@ -19,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail // tambahkan inter
     protected $fillable = [
         'name',
         'token',
+        'role',
         'email',
         'password',
         'google_id',

@@ -1,20 +1,13 @@
 import React from "react";
-import {
-    Search,
-    BookOpen,
-    Users,
-    Clock,
-    Star,
-    Menu,
-    X,
-    Sparkles,
-    Award,
-    PlayCircle,
-    FileText,
-    Trophy,
-} from "lucide-react";
+import { Users, Clock, Star, Sparkles, Award } from "lucide-react";
 
-function CourseGrid({ explore_class, openModal, getBadgeStyle }) {
+function CourseGrid({
+    explore_class,
+    openModal,
+    getBadgeStyle,
+    verifikasi,
+    token,
+}) {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -78,13 +71,22 @@ function CourseGrid({ explore_class, openModal, getBadgeStyle }) {
                                         "id-ID"
                                     )}
                                 </span>
-                                <button
-                                    onClick={() => openModal(course)}
-                                    className="px-4 sm:px-5 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-xl font-black transition-all transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base"
-                                >
-                                    Cek Yuk!
-                                    <Award className="w-4 h-4" />
-                                </button>
+                                {verifikasi?.token === token ? (
+                                    <button
+                                        onClick={() => openModal(course)}
+                                        className="px-4 sm:px-5 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-xl font-black transition-all transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base"
+                                    >
+                                        Cek Yuk!
+                                        <Award className="w-4 h-4" />
+                                    </button>
+                                ) : (
+                                    <a href="/student-register">
+                                        <button className="px-4 sm:px-5 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-xl font-black transition-all transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base">
+                                            Cek Yuk!
+                                            <Award className="w-4 h-4" />
+                                        </button>
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -20,4 +20,8 @@ class MakeClassController extends Controller
     public function PrivateClass() {
         return Inertia::render('ClassRoom/PrivateClass');
     }
+
+    public function WorkshopClass() {
+        return Inertia::render('ClassRoom/WorkshopClass');
+    }
 }

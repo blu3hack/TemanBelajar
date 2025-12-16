@@ -1,16 +1,16 @@
 import React from "react";
 import { Search } from "lucide-react";
 
-function HeroSection() {
+function HeroSection({ user }) {
     return (
         <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white py-16">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4">
-                        Yuk, Belajar Hal Seru! 🎉
+                        Yuk, Belajar Hal Seru
                     </h1>
                     <p className="text-lg sm:text-xl font-semibold">
-                        Upgrade skill kamu bareng ribuan teman lainnya 💪
+                        Upgrade skill kamu bareng ribuan teman lainnya
                     </p>
                 </div>
 

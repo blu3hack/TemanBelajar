@@ -15,12 +15,15 @@ use App\Http\Controllers\Register\CreateMentorController;
 use App\Http\Controllers\Register\CreateStudentController;
 use App\Http\Controllers\Register\GoogleController;
 use App\Http\Controllers\Register\RegisterController;
+use App\Http\Controllers\Register\WaitVerificationController;
 use App\Http\Controllers\Register\WhatsappVerificationCOntroller;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
+
+// ====== main Routings ======
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -30,9 +33,16 @@ Route::get('/', function () {
     ]);
 });
 
+// ===== dashboard Routings ======
 Route::get('/dashboard', [DashboardController::class, 'schedule_class'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+// ===== auth Routings ======
+
+Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/home-student', [HomeController::class, 'HomeViewStudent'])->name('home.student');
     Route::get('/home-tentor', [HomeController::class, 'HomeViewTentor'])->name('home.tentor');
 });
+
+// ===== register Routings ======
 
 Route::get('/student-register', [RegisterController::class, 'StudentRegister'])->name('student.register');
 Route::get('/mentor-register', [RegisterController::class, 'MentorRegister'])->name('mentor.register');
@@ -51,6 +63,7 @@ Route::post('/create-student', [CreateStudentController::class, 'store'])->name(
 Route::get('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'SendWAVerification'])->name('send-wa');
 Route::post('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'verifyOtp'])->name('verify-wa');
 
+Route::get('/wait-verification', [WaitVerificationController::class, 'WaitVerification'])->name('wait-verification');
 
 Route::post('/payment', [PaymentController::class, 'create'])->name('create-payment');
 // Callback POST dari Midtrans (notification)
@@ -64,17 +77,13 @@ Route::get('/payment/callback', function () {
 });
 
 Route::post('/checkout', [CoursePaymentController::class, 'store'])->name('checkout.store');
-Route::get('/course-payment/{classroom_id}/{token}', [CoursePaymentController::class, 'Payment'])->name('course-payment');
+Route::get('/course-payment/{classroom_id}/{token_mentor}', [CoursePaymentController::class, 'Payment'])->name('course-payment');
 
 // make classroom
 Route::get('/group-classroom', [MakeClassController::class, 'GroupClass'])->name('group-class');
-Route::post('/create-group', [MakeGroupController::class, 'GroupClassStore'])->name('create-group');
 Route::get('/private-classroom', [MakeClassController::class, 'PrivateClass'])->name('private-class');
-Route::post('/create-private', [MakePrivateController::class, 'PrivateClassStore'])->name('create-private');
+Route::get('/workshop-classroom', [MakeClassController::class, 'WorkshopClass'])->name('Workshop-class');
 Route::get('/rule-classroom', [MakeClassController::class, 'RuleClass'])->name('rule-class');
-
-Route::get('/login/google', [GoogleController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 // Explore Room
 Route::get('/explore', [ClassroomExploreController::class, 'Explore'])->name('explore-class');
@@ -84,3 +93,6 @@ Route::post('/create-explore', [ClassroomExploreController::class, 'CreateExplor
 Route::get('/profile-mentor', [ProfileMentorController::class, 'ProfileMentorView'])->name('profile.mentor');
 
 require __DIR__.'/auth.php';
+Route::get('/login', function () {
+    return redirect('/login/google');
+})->name('login');

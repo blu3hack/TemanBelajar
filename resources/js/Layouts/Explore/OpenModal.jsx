@@ -17,6 +17,7 @@ function OpenModal({
     user,
     closeModal,
     getBadgeStyle,
+    explore_class,
 }) {
     return (
         <div
@@ -137,7 +138,8 @@ function OpenModal({
                                 amount: selectedCourse.total_price,
                                 title: selectedCourse.title,
                                 instructor: selectedCourse.instructor,
-                                token: user.token,
+                                token_mentor: selectedCourse.token,
+                                token_student: user.token,
                                 name: user.name,
                                 no_wa: user.no_wa,
                             })

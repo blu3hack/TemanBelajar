@@ -6,18 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ClassroomExploreController extends Controller
 {
     public function Explore() {
         $explore_class = DB::table('explore_class')->get();
+        $token = Auth::user()->token;
+        $verifikasi = DB::table('data_active_student_tables')
+            ->where('token', $token)
+            ->first();
 
         return Inertia::render('Explore/ClassroomExplore', [
-            'explore_class' => $explore_class
+            'explore_class' => $explore_class,
+            'verifikasi' => $verifikasi,
+            'token' => $token,
         ]);
     }
-
 
     public function CreateExploreCLass(Request $request) {
         $parts = explode(' ', $request->total_meet);
@@ -25,7 +31,7 @@ class ClassroomExploreController extends Controller
         $total_price = $request->price * $total_meet;
         $level = $request->level;
 
-        $classroom_id = "CLASS-" . time() . $level . "-focuz.id";
+        $classroom_id = "CLASS-" . time() . "-" . $level . "-focuz.id";
 
         try {
             DB::table('explore_class')->insert([

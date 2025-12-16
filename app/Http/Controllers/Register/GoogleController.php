@@ -22,15 +22,16 @@ class GoogleController extends Controller
             $googleUser = Socialite::driver('google')->user();
 
             // Cek user di database
-            $token = 'IDLINK' . str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
+            $token = 'FOCUZID-' . date('YmdHis') . random_int(100, 999);
             $user = User::firstOrCreate(
                 ['email' => $googleUser->getEmail()],
                 [
                     'google_id' => $googleUser->getId(),
                     'name' => $googleUser->getName(),
                     'token' => $token,
+                    'role' => 'guest',
                     'avatar' => $googleUser->getAvatar(),
-                    'password' => bcrypt('123456'), // password default
+                    'password' => bcrypt('ExtreamFantasy'), // password default
                 ]
             );
             Auth::login($user);

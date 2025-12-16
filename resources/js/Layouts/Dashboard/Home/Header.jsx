@@ -6,11 +6,11 @@ function Header({ user }) {
             <div className="flex items-center justify-between mb-4">
                 <div>
                     <h2 className="text-2xl lg:text-3xl font-bold">
-                        Halo, {user.name}! 👋
+                        Halo, {user.name}
                     </h2>
-                    <p className="text-white/90 text-sm lg:text-base mt-1">
-                        Semangat Belajar hari ini
-                    </p>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 text-white text-xs lg:text-sm font-semibold tracking-wide backdrop-blur-sm">
+                        {user.role?.toUpperCase()}
+                    </span>
                 </div>
                 <button className="w-12 h-12 lg:w-14 lg:h-14 bg-white/20 backdrop-blur-sm rounded-full overflow-hidden flex items-center justify-center hover:bg-white/30 transition-all">
                     <img
