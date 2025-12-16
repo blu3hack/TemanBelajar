@@ -1,0 +1,60 @@
+[21-Nov-2025 08:52:39 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:52:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:53:20 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:53:20 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:06 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:06 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:16 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:16 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:31 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:31 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:39 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:54:39 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:15 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:20 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:20 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:26 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:26 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:46 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:57:46 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:58:58 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 08:58:58 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 09:03:07 UTC] PHP Warning:  require(/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php): Failed to open stream: No such file or directory in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9
+[21-Nov-2025 09:03:07 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/alazkaid/focuz.alazka.id/TemanBelajar/vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan:9
+Stack trace:
+#0 {main}
+  thrown in /home/alazkaid/focuz.alazka.id/TemanBelajar/artisan on line 9

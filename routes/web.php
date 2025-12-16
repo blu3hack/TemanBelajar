@@ -62,7 +62,6 @@ Route::post('/create-mentor', [CreateMentorController::class, 'store'])->name('c
 Route::post('/create-student', [CreateStudentController::class, 'store'])->name('create.student');
 Route::get('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'SendWAVerification'])->name('send-wa');
 Route::post('/whatsapp-verification', [WhatsappVerificationCOntroller::class, 'verifyOtp'])->name('verify-wa');
-
 Route::get('/wait-verification', [WaitVerificationController::class, 'WaitVerification'])->name('wait-verification');
 
 Route::post('/payment', [PaymentController::class, 'create'])->name('create-payment');
@@ -70,7 +69,7 @@ Route::post('/payment', [PaymentController::class, 'create'])->name('create-paym
 Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('midtrans.callback');
 
 Route::post('/checkout', [CoursePaymentController::class, 'store'])->name('checkout.store');
-Route::get('/course-payment/{classroom_id}/{token_mentor}', [CoursePaymentController::class, 'Payment'])->name('course-payment');
+Route::get('/course-payment/{classroom_id}', [CoursePaymentController::class, 'Payment'])->name('course-payment');
 
 // make classroom
 Route::get('/group-classroom', [MakeClassController::class, 'GroupClass'])->name('group-class');

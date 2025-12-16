@@ -4,27 +4,31 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class CoursePaymentController extends Controller
 {
-    public function Payment($classroom_id, $token)
+    public function Payment($classroom_id)
     {
+        $token = Auth::user()->token;
         $transaction_payment = DB::table('transaction_payment')
             ->where('classroom_id', $classroom_id)
-            ->where('token', $token)
             ->first(); // ambil satu data
 
+        $whatapp_no = DB::table('whatsapp_otp')
+            ->where('token', $token)
+            ->first(); // ambil satu data
+        
         return Inertia::render('Payment/CoursePayment', [
             'instructor' => $transaction_payment->instructor ?? null,
             'name' => $transaction_payment->name ?? null,
             'title' => $transaction_payment->title ?? null,
             'amount' => $transaction_payment->amount ?? null,
-            'no_wa' => '081234567890',
+            'no_wa' => $whatapp_no->no_wa,
         ]);
     }
-
 
     public function store(Request $request)
     {
@@ -43,9 +47,10 @@ class CoursePaymentController extends Controller
         ]);
 
         // redirect ke halaman pembayaran atau sukses
-        return redirect()->route('course-payment',[
-            'classroom_id' => $request->classroom_id,
-            'token_mentor' => $request->token_mentor])
+        return redirect()->route('course-payment',
+            [
+            'classroom_id' => $request->classroom_id
+            ])
         ->with('success', 'Pendaftaran berhasil!');
     }
 }
