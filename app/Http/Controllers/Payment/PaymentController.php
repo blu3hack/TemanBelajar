@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Midtrans\Snap;
 
 class PaymentController extends Controller
@@ -35,8 +36,8 @@ class PaymentController extends Controller
     public function callback(Request $request)
     {
         // 1. Validasi signature
+        $token = Auth::user()->token;
         $serverKey = config('midtrans.server_key');
-
         $expectedSignature = hash(
             'sha512',
             $request->order_id .
@@ -56,6 +57,7 @@ class PaymentController extends Controller
         $transactionId      = $request->transaction_id ?? null;
         $statusCode         = $request->status_code;
         $grossAmount        = $request->gross_amount;
+        
 
         // 3. Simpan / update (idempotent)
         DB::table('notification_payment')->updateOrInsert(
@@ -93,6 +95,17 @@ class PaymentController extends Controller
                 'merchant_id'        => $request->merchant_id,
             ]
         );
+
+        // 5. Update status pembyaran menjadi paid saat berhasil melakukan proses pembayaran
+        if ($request->transaction_status === 'settlement') {
+            DB::table('transaction_payment')
+                ->where('token_studen', $token)
+                ->update([
+                    'status_payment' => 'paid',
+                ]);
+
+        }
+
 
         return response()->json(['message' => 'OK']);
     }
