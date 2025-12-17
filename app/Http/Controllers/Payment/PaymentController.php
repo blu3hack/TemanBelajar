@@ -73,7 +73,7 @@ class PaymentController extends Controller
         );
 
         // 4. Simpan Detil Pembayaran
-        DB::table('payment_details')->updateOrInsert(
+        DB::table('detil_payment')->updateOrInsert(
             ['order_id' => $request->order_id],
             [
                 'transaction_id'     => $request->transaction_id,
@@ -91,8 +91,6 @@ class PaymentController extends Controller
                 'customer_name'      => $request->customer_details['full_name'] ?? null,
                 'customer_phone'     => $request->customer_details['phone'] ?? null,
                 'merchant_id'        => $request->merchant_id,
-                'updated_at'         => now(),
-                'created_at'         => now(),
             ]
         );
 
