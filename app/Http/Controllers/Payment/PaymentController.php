@@ -72,6 +72,30 @@ class PaymentController extends Controller
             ]
         );
 
+        // 4. Simpan Detil Pembayaran
+        DB::table('payment_details')->updateOrInsert(
+            ['order_id' => $request->order_id],
+            [
+                'transaction_id'     => $request->transaction_id,
+                'transaction_status' => $request->transaction_status,
+                'payment_type'       => $request->payment_type,
+                'bank'               => $request->va_numbers[0]['bank'] ?? null,
+                'va_number'          => $request->va_numbers[0]['va_number'] ?? null,
+                'gross_amount'       => $request->gross_amount,
+                'currency'           => $request->currency,
+                'fraud_status'       => $request->fraud_status,
+                'status_code'        => $request->status_code,
+                'transaction_time'   => $request->transaction_time,
+                'settlement_time'    => $request->settlement_time ?? null,
+                'expiry_time'        => $request->expiry_time ?? null,
+                'customer_name'      => $request->customer_details['full_name'] ?? null,
+                'customer_phone'     => $request->customer_details['phone'] ?? null,
+                'merchant_id'        => $request->merchant_id,
+                'updated_at'         => now(),
+                'created_at'         => now(),
+            ]
+        );
+
         return response()->json(['message' => 'OK']);
     }
 }

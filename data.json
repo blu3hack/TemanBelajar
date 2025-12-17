@@ -1,0 +1,22 @@
+{
+    "va_numbers": [{ "va_number": "84461636918907117810750", "bank": "bca" }],
+    "transaction_time": "2025-12-17 10:37:34",
+    "transaction_status": "settlement",
+    "transaction_id": "8372964d-1776-45b5-8c0a-c48f29bdd24d",
+    "status_message": "midtrans payment notification",
+    "status_code": "200",
+    "signature_key": "e9cbb75a4b691ae628806634add0fb6b305aed44078c98272536cc29eeba34e0d896b71e79796c33daf16a3b8cfee066400b30954ed884f2a417fb360efef81e",
+    "settlement_time": "2025-12-17 10:37:41",
+    "payment_type": "bank_transfer",
+    "payment_amounts": [],
+    "order_id": "INVOICE-1765942647-focuz.id",
+    "merchant_id": "G747084461",
+    "gross_amount": "520000.00",
+    "fraud_status": "accept",
+    "expiry_time": "2025-12-18 10:37:34",
+    "customer_details": {
+        "phone": "+6285755006403",
+        "full_name": "Ratu Bermahkota Hijab"
+    },
+    "currency": "IDR"
+}
