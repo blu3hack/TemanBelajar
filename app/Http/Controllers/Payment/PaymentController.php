@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Payment;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Midtrans\Snap;
@@ -10,8 +9,8 @@ class PaymentController extends Controller
 {
     public function create(Request $request)
     {
-
         $orderId = "INVOICE-" . time() . "-focuz.id";
+
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
@@ -22,10 +21,6 @@ class PaymentController extends Controller
                 'email' => $request->email,
                 'phone' => $request->no_wa,
             ],
-            // custom field
-            'custom_field1' => 'user_id_' . auth()->id(),
-            'custom_field2' => 'langganan',
-            'custom_field3' => 'web_focuz',
         ];
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
