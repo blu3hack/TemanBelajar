@@ -3,8 +3,16 @@ import { router, usePage } from "@inertiajs/react";
 import { Shield, Lock, ArrowRight, Tag, Users, BookOpen } from "lucide-react";
 
 export default function CoursePayment() {
-    const { flash, name, amount, email, no_wa, title, instructor } =
-        usePage().props;
+    const {
+        flash,
+        name,
+        amount,
+        email,
+        no_wa,
+        title,
+        instructor,
+        classroom_id,
+    } = usePage().props;
     const [loading, setLoading] = useState(false);
 
     // Load Snap.js
@@ -45,6 +53,7 @@ export default function CoursePayment() {
     const handleClickPayment = () => {
         setLoading(true);
         router.post("/payment", {
+            classroom_id: classroom_id,
             name: name,
             amount: amount,
             email: email,

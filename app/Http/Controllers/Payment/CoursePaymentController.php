@@ -13,6 +13,7 @@ class CoursePaymentController extends Controller
     public function Payment($classroom_id)
     {
         $token = Auth::user()->token;
+        $name = Auth::user()->name;
         $transaction_payment = DB::table('transaction_payment')
             ->where('classroom_id', $classroom_id)
             ->first(); // ambil satu data
@@ -22,8 +23,9 @@ class CoursePaymentController extends Controller
             ->first(); // ambil satu data
         
         return Inertia::render('Payment/CoursePayment', [
+            'classroom_id' => $transaction_payment->classroom_id ?? null,
             'instructor' => $transaction_payment->instructor ?? null,
-            'name' => $transaction_payment->name ?? null,
+            'name' => $name ?? null,
             'title' => $transaction_payment->title ?? null,
             'amount' => $transaction_payment->amount ?? null,
             'no_wa' => $whatapp_no->no_wa,
