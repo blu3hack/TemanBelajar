@@ -12,12 +12,27 @@ class PaymentController extends Controller
     public function create(Request $request)
     {
         $token = Auth::user()->token;
+        $orderId = "INVOICE-" . time() . "-focuz.id"; // samakan saja dengan classroom_id dari table transaction_payment
         $classroom_id = DB::table('transaction_payment')
             ->where('token_student', $token)
+            ->where('classroom_id', $request->classroom_id) // classroom_id dari request
             ->first();
 
-        // $orderId = "INVOICE-" . time() . "-focuz.id"; // samakan saja dengan classroom_id dari table transaction_payment
-        $orderId = $classroom_id->classroom_id;
+        
+        DB::table('main_transaction_payment')->insert([
+            'order_id' => $orderId,
+            'classroom_id' => $classroom_id->classroom_id,
+            'title' => $classroom_id->title,
+            'mentor' => $classroom_id->instructor,
+            'token_mentor' => $classroom_id->token,
+            'student' => $classroom_id->name,
+            'token_student' => $classroom_id->token_student,
+            'amount' => $classroom_id->amount,
+            'status_payment' => 'unpaid',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
@@ -102,14 +117,12 @@ class PaymentController extends Controller
 
         // 5. Update status pembyaran menjadi paid saat berhasil melakukan proses pembayaran
         if ($request->transaction_status === 'settlement') {
-            DB::table('transaction_payment')
-                ->where('classroom_id', $orderId )
+            DB::table('main_transaction_payment')
+                ->where('order_id', $orderId )
                 ->update([
                     'status_payment' => 'paid',
                 ]);
-
         }
-
 
         return response()->json(['message' => 'OK']);
     }
