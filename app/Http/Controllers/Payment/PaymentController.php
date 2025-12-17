@@ -103,7 +103,7 @@ class PaymentController extends Controller
         // 5. Update status pembyaran menjadi paid saat berhasil melakukan proses pembayaran
         if ($request->transaction_status === 'settlement') {
             DB::table('transaction_payment')
-                ->where('token_studen')
+                ->where('classroom_id', $orderId )
                 ->update([
                     'status_payment' => 'paid',
                 ]);
