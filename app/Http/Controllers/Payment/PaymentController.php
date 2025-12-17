@@ -11,8 +11,13 @@ class PaymentController extends Controller
 {
     public function create(Request $request)
     {
-        $orderId = "INVOICE-" . time() . "-focuz.id";
+        $token = Auth::user()->token;
+        $classroom_id = DB::table('transaction_payment')
+            ->where('token_student', $token)
+            ->first();
 
+        // $orderId = "INVOICE-" . time() . "-focuz.id"; // samakan saja dengan classroom_id dari table transaction_payment
+        $orderId = $classroom_id->classroom_id;
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
@@ -36,7 +41,6 @@ class PaymentController extends Controller
     public function callback(Request $request)
     {
         // 1. Validasi signature
-        $token = Auth::user()->token;
         $serverKey = config('midtrans.server_key');
         $expectedSignature = hash(
             'sha512',
@@ -99,7 +103,7 @@ class PaymentController extends Controller
         // 5. Update status pembyaran menjadi paid saat berhasil melakukan proses pembayaran
         if ($request->transaction_status === 'settlement') {
             DB::table('transaction_payment')
-                ->where('token_studen', $token)
+                ->where('token_studen')
                 ->update([
                     'status_payment' => 'paid',
                 ]);
