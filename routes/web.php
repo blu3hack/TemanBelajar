@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ClassRoom\MakeClassController;
+use App\Http\Controllers\ClassRoom\MakeGroupController;
+use App\Http\Controllers\ClassRoom\MakePrivateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Explore\ClassroomExploreController;
 use App\Http\Controllers\HomeView\HomeController;
@@ -17,6 +19,7 @@ use App\Http\Controllers\Register\WaitVerificationController;
 use App\Http\Controllers\Register\WhatsappVerificationCOntroller;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 
@@ -32,7 +35,7 @@ Route::get('/', function () {
 
 // ===== dashboard Routings ======
 Route::get('/dashboard', [DashboardController::class, 'schedule_class'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth'])
     ->name('dashboard');
 
 // ===== auth Routings ======
@@ -82,6 +85,4 @@ Route::post('/create-explore', [ClassroomExploreController::class, 'CreateExplor
 Route::get('/profile-mentor', [ProfileMentorController::class, 'ProfileMentorView'])->name('profile.mentor');
 
 require __DIR__.'/auth.php';
-Route::get('/login', function () {
-    return redirect('/login/google');
-})->name('login');
+

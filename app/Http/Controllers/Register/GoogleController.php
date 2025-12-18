@@ -13,31 +13,30 @@ class GoogleController extends Controller
 {
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        $googleUrl = Socialite::driver('google')->redirect()->getTargetUrl();
+        return redirect($googleUrl . '&prompt=select_account');
     }
 
     public function handleGoogleCallback()
     {
-        try {
-            $googleUser = Socialite::driver('google')->user();
+        $googleUser = Socialite::driver('google')->user();
 
-            // Cek user di database
-            $token = 'FOCUZID-' . date('YmdHis') . random_int(100, 999);
-            $user = User::firstOrCreate(
-                ['email' => $googleUser->getEmail()],
-                [
-                    'google_id' => $googleUser->getId(),
-                    'name' => $googleUser->getName(),
-                    'token' => $token,
-                    'role' => 'guest',
-                    'avatar' => $googleUser->getAvatar(),
-                    'password' => bcrypt('ExtreamFantasy'), // password default
-                ]
-            );
-            Auth::login($user);
-            return redirect('/dashboard');
-        } catch (\Exception $e) {
-            return redirect('/login/google')->with('error', 'Login gagal: ' . $e->getMessage());
-        }
+        $token = 'FOCUZID-' . date('YmdHis') . random_int(100, 999);
+
+        $user = User::firstOrCreate(
+            ['email' => $googleUser->getEmail()],
+            [
+                'google_id' => $googleUser->getId(),
+                'name' => $googleUser->getName(),
+                'token' => $token,
+                'avatar' => $googleUser->getAvatar(),
+                'password' => bcrypt('ExtreamFantasy'),
+                'email_verified_at' => now(),
+            ]
+        );
+
+        Auth::login($user);
+        request()->session()->regenerate();
+        return redirect()->to('/dashboard');
     }
 }
