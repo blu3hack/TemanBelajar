@@ -25,6 +25,7 @@ class MakePrivateController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        return redirect()->back()->with('success', 'Kelas berhasil dibuat!');
+        return redirect('/dashboard')->with('success', 'Kelas berhasil dibuat!');
+
     }
 }

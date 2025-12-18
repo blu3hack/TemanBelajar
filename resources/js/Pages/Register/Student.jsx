@@ -60,10 +60,13 @@ function Student() {
                 </div>
             )}
             <div className="text-center mb-6">
-                <div className="inline-block mb-4">
+                <div className="flex flex-col items-center mb-6">
                     <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
                         <GraduationCap className="w-12 h-12 text-white" />
                     </div>
+                    <p className="mt-3 text-lg font-semibold text-gray-700 text-center">
+                        Daftar Dulu Sebelum Memulai
+                    </p>
                 </div>
             </div>
             <div className="w-full max-w-6xl mx-auto">

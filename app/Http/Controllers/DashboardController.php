@@ -19,6 +19,8 @@ class DashboardController extends Controller
             ->where('token', $token)
             ->first();
 
+        // dd($verif_mentor);
+
         $verif_student = DB::table('data_active_student_tables')
             ->where('token', $token)
             ->first();

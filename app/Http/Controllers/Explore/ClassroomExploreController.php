@@ -13,13 +13,34 @@ class ClassroomExploreController extends Controller
     public function Explore() {
         $explore_class = DB::table('explore_class')->get();
         $token = Auth::user()->token;
+
+        $classroom_ids = $explore_class->pluck('classroom_id'); // ambil semua classroom_id
+        
+        $students = DB::table('main_transaction_payment')
+            ->select('classroom_id', DB::raw('count(*) as total'))
+            ->whereIn('classroom_id', $classroom_ids)
+            ->groupBy('classroom_id')
+            ->get()
+            ->keyBy('classroom_id'); // supaya bisa diakses per id
+
+            // mapping semua classroom_id
+        $count_per_class = $classroom_ids->mapWithKeys(function($id) use ($students) {
+            return [$id => $students[$id]->total ?? 0]; // 0 jika tidak ada data
+        });
+
+        // dd($count_per_class);
+
+
         $verifikasi = DB::table('data_active_student_tables')
             ->where('token', $token)
             ->first();
+
+        
         return Inertia::render('Explore/ClassroomExplore', [
             'explore_class' => $explore_class,
             'verifikasi' => $verifikasi,
             'token' => $token,
+            'count_student' => $count_per_class,
         ]);
     }
 
@@ -50,10 +71,9 @@ class ClassroomExploreController extends Controller
             'audience' => $request->audience,
             'total_meet' => $request->total_meet,
         ]);
-            return redirect()->back()->with('success', 'Kelas berhasil dibuat!');
+            return redirect('/dashboard')->with('success', 'Kelas berhasil dibuat!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-
 }

@@ -2,5 +2,7 @@
 2. Email Verfication -> check
 3. Daftar Mentor -> check
 4. whatsapp verifikasi -> check
-5. verifikasi mentor dari admin platform -> belum
-6. 
+5. verifikasi mentor dari admin platform -> belum (tinggal buat dashboardnya)
+6. Daftar Student -> check
+7. whatsapp verifikasi student -> check
+8. 

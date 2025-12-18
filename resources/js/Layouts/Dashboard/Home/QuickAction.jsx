@@ -9,15 +9,20 @@ import {
 import Link from "./Link";
 
 function QuickAction({ user, verif_mentor, verif_student }) {
-    const isGuestOrStudent = verif_mentor === null || verif_student === null;
+    // Kondisi utama
+    let mentorLink = "/mentor-register"; // default jika belum daftar
+    let mentorLabel = "Daftar Mentor";
 
-    const isWaitingVerification =
-        verif_mentor?.token === user.token &&
-        verif_mentor?.status === "inactive";
-
-    const mentorLink = isWaitingVerification
-        ? "/wait-verification"
-        : "/mentor-register";
+    if (verif_mentor) {
+        // Sudah daftar mentor
+        if (verif_mentor.status === "active") {
+            mentorLink = "/rule-classroom"; // boleh buka kelas
+            mentorLabel = "Buat Kelas";
+        } else {
+            mentorLink = "/wait-verification"; // menunggu verifikasi
+            mentorLabel = "Menunggu verifikasi";
+        }
+    }
 
     return (
         <div>
@@ -26,24 +31,10 @@ function QuickAction({ user, verif_mentor, verif_student }) {
             </h3>
 
             <div className="grid grid-cols-4 gap-3">
-                {isGuestOrStudent ? (
-                    <Link
-                        link={mentorLink}
-                        label={
-                            isWaitingVerification
-                                ? "Menunggu verif_mentor"
-                                : "Daftar Mentor"
-                        }
-                        icon={BookUser}
-                    />
-                ) : (
-                    <Link
-                        link="/rule-classroom"
-                        label="Buat Kelas"
-                        icon={Plus}
-                    />
-                )}
+                {/* Tombol mentor */}
+                <Link link={mentorLink} label={mentorLabel} icon={BookUser} />
 
+                {/* Tombol lainnya */}
                 <Link link="#" label="Daftar Meeting" icon={Video} />
                 <Link link="#" label="Chat Admin" icon={MessageCircleHeart} />
                 <Link link="/explore" label="Explore Kelas" icon={Landmark} />

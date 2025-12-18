@@ -9,6 +9,7 @@ import OpenModal from "@/Layouts/Explore/OpenModal";
 function ClassroomExplore() {
     const { explore_class } = usePage().props;
     const { verifikasi } = usePage().props;
+    const { count_student } = usePage().props;
     const { token } = usePage().props;
     const user = usePage().props.auth.user;
     const [selectedCourse, setSelectedCourse] = useState(null);
@@ -38,7 +39,7 @@ function ClassroomExplore() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-            <Navbar />
+            {/* <Navbar /> */}
             <HeroSection user={user} />
             <CourseGrid
                 explore_class={explore_class}
@@ -46,6 +47,7 @@ function ClassroomExplore() {
                 openModal={openModal}
                 verifikasi={verifikasi}
                 token={token}
+                count_student={count_student}
             />
             {isModalOpen && selectedCourse && (
                 <div

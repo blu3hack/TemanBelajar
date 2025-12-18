@@ -9,14 +9,12 @@ import {
     School,
     HeartHandshake,
 } from "lucide-react";
-import InputFile from "./FormComponent/InputFile";
 import InputLongText from "./FormComponent/InputLongText";
 import Tagline from "./FormComponent/Tagline";
 import InputShortText from "./FormComponent/InputShortText";
 import Describe from "./FormComponent/Describe";
 import ButtonClass from "./FormComponent/ButtonClass";
 import InputSelection from "./FormComponent/InputSelection";
-import Student from "../Register/Student";
 
 function GroupClass() {
     const user = usePage().props.auth.user;
@@ -64,7 +62,7 @@ function GroupClass() {
             <div className="max-w-4xl mx-auto">
                 {/* Header dengan Dekorasi */}
                 <Tagline
-                    tagline="Buat Kelas Private"
+                    tagline="Buat Kelas Group"
                     label="Bagikan ilmu kamu ke teman-teman"
                 />
 
