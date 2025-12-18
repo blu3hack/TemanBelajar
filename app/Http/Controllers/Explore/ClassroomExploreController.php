@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Explore;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,7 +16,6 @@ class ClassroomExploreController extends Controller
         $verifikasi = DB::table('data_active_student_tables')
             ->where('token', $token)
             ->first();
-
         return Inertia::render('Explore/ClassroomExplore', [
             'explore_class' => $explore_class,
             'verifikasi' => $verifikasi,

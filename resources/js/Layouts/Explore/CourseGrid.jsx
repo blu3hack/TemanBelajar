@@ -82,7 +82,7 @@ function CourseGrid({
                                 ) : (
                                     <a href="/student-register">
                                         <button className="px-4 sm:px-5 py-2 sm:py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-xl font-black transition-all transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base">
-                                            Cek Yuk!
+                                            Daftar
                                             <Award className="w-4 h-4" />
                                         </button>
                                     </a>
