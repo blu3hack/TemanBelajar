@@ -8,11 +8,12 @@ import {
 } from "lucide-react";
 import Link from "./Link";
 
-function QuickAction({ user, verifikasi }) {
-    const isGuestOrStudent = user.role === "guest" || user.role === "student";
+function QuickAction({ user, verif_mentor, verif_student }) {
+    const isGuestOrStudent = verif_mentor === null || verif_student === null;
 
     const isWaitingVerification =
-        verifikasi?.token === user.token && verifikasi?.status === "inactive";
+        verif_mentor?.token === user.token &&
+        verif_mentor?.status === "inactive";
 
     const mentorLink = isWaitingVerification
         ? "/wait-verification"
@@ -30,7 +31,7 @@ function QuickAction({ user, verifikasi }) {
                         link={mentorLink}
                         label={
                             isWaitingVerification
-                                ? "Menunggu Verifikasi"
+                                ? "Menunggu verif_mentor"
                                 : "Daftar Mentor"
                         }
                         icon={BookUser}

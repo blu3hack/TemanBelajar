@@ -1,0 +1,6 @@
+1. Login Via Google -> check
+2. Email Verfication -> check
+3. Daftar Mentor -> check
+4. whatsapp verifikasi -> check
+5. verifikasi mentor dari admin platform -> belum
+6. 

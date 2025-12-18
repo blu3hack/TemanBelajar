@@ -21,7 +21,8 @@ import ButtomNav from "@/Layouts/Dashboard/Mobile/ButtomNav";
 const AdminDashboard = () => {
     const user = usePage().props.auth.user;
     const { schedule_class } = usePage().props;
-    const { verifikasi } = usePage().props;
+    const { verif_mentor } = usePage().props;
+    const { verif_student } = usePage().props;
     const [activeMenu, setActiveMenu] = useState("home");
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -40,7 +41,11 @@ const AdminDashboard = () => {
                     <div className="space-y-6 pb-6">
                         <Header user={user} />
                         <div className="grid lg:grid-cols-2 gap-6">
-                            <QuickAction user={user} verifikasi={verifikasi} />
+                            <QuickAction
+                                user={user}
+                                verif_mentor={verif_mentor}
+                                verif_student={verif_student}
+                            />
                             <Performa />
                         </div>
                     </div>

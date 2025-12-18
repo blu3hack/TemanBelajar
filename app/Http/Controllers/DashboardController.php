@@ -15,14 +15,19 @@ class DashboardController extends Controller
         $schedule_class = DB::table('explore_class')->get();
         $token = Auth::user()->token;
 
-        $verifikasi = DB::table('data_active_mentor_tables')
+        $verif_mentor = DB::table('data_active_mentor_tables')
+            ->where('token', $token)
+            ->first();
+
+        $verif_student = DB::table('data_active_student_tables')
             ->where('token', $token)
             ->first();
 
         return Inertia::render('Dashboard', [
             'schedule_class' => $schedule_class,
             'token' => $token,
-            'verifikasi' => $verifikasi,
+            'verif_mentor' => $verif_mentor,
+            'verif_student' => $verif_student,
         ]);
 
     }
