@@ -2,11 +2,12 @@ import React from "react";
 
 function ButtomNav({ menuItems, activeMenu, setActiveMenu }) {
     return (
-        <div className="px-6 py-3">
-            <div className="flex items-center justify-between">
+        <div className="px-6 py-3 overflow-x-auto">
+            <div className="flex items-center gap-4 min-w-max">
                 {menuItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeMenu === item.id;
+
                     return (
                         <button
                             key={item.id}
@@ -25,7 +26,7 @@ function ButtomNav({ menuItems, activeMenu, setActiveMenu }) {
                                 <Icon size={22} strokeWidth={2.5} />
                             </div>
                             <span
-                                className={`text-xs font-medium ${
+                                className={`text-xs font-medium whitespace-nowrap ${
                                     isActive ? "text-gray-900" : "text-gray-500"
                                 }`}
                             >

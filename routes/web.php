@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\BestAdmin;
 use App\Http\Controllers\ClassRoom\MakeClassController;
-use App\Http\Controllers\ClassRoom\MakeGroupController;
-use App\Http\Controllers\ClassRoom\MakePrivateController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Explore\ClassroomExploreController;
 use App\Http\Controllers\HomeView\HomeController;
@@ -19,7 +18,6 @@ use App\Http\Controllers\Register\WaitVerificationController;
 use App\Http\Controllers\Register\WhatsappVerificationCOntroller;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 
@@ -83,6 +81,12 @@ Route::post('/create-explore', [ClassroomExploreController::class, 'CreateExplor
 
 // Profile Mentor View
 Route::get('/profile-mentor', [ProfileMentorController::class, 'ProfileMentorView'])->name('profile.mentor');
+Route::put('/update-profile-mentor', [ProfileMentorController::class, 'UpdateProfile'])->name('update.profile.mentor');
+
+// Route for admin
+Route::get('/BestAdmin', [BestAdmin::class, 'BestAdmin']);
+Route::put('update-status-mentor/{id}', [BestAdmin::class, 'UpdateMentorStatus'])->name('update.status.mentor');
+Route::put('update-image-class/{classID}', [BestAdmin::class, 'UpdateImageClass'])->name('update.image.class');
 
 require __DIR__.'/auth.php';
 

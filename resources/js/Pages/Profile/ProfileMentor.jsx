@@ -1,72 +1,60 @@
 import React, { useState } from "react";
+import { usePage, useForm } from "@inertiajs/react";
 import {
     User,
     Mail,
     Phone,
     MapPin,
     BookOpen,
-    Award,
     Star,
     Instagram,
     Send,
     Twitter,
     Briefcase,
     Trophy,
-    Clock,
     Users,
+    Edit,
     X,
+    Save,
+    Camera,
 } from "lucide-react";
-
-// Komponen Modal Sederhana untuk Foto Profil
-const ProfileModal = ({ isOpen, onClose, name }) => {
-    if (!isOpen) return null;
-
-    return (
-        <div
-            className="fixed inset-0 bg-black bg-opacity-80 z-50 flex justify-center items-center p-4"
-            onClick={onClose}
-        >
-            {/* Modal diperbesar dengan class max-w-lg dan w-11/12 */}
-            <div
-                className="relative p-8 w-11/12 max-w-lg bg-white rounded-xl shadow-2xl animate-in fade-in-0 zoom-in-95"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <button
-                    className="absolute top-3 right-3 text-white bg-red-500 rounded-full p-2 hover:bg-red-600 transition z-10"
-                    onClick={onClose}
-                >
-                    <X size={24} />
-                </button>
-                <h3 className="text-2xl font-bold mb-6 text-gray-800 text-center border-b pb-3">
-                    Foto Profil {name}
-                </h3>
-
-                {/* Placeholder Foto Full - Ukuran Avatar diperbesar */}
-                <div className="w-full h-auto aspect-square bg-gradient-to-br from-indigo-500 to-purple-500 rounded-3xl flex items-center justify-center text-9xl font-extrabold text-white shadow-xl border-4 border-white mx-auto">
-                    {name.charAt(0)}
-                </div>
-            </div>
-        </div>
-    );
-};
+import ProfileModal from "@/Layouts/Profile/ProfileModal";
+import StatItem from "@/Layouts/Profile/StatItem";
+import ListCard from "@/Layouts/Profile/ListCard";
+import DetailItem from "@/Layouts/Profile/DetailItem";
 
 function PublicProfile() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { props } = usePage();
+    const { profile } = props;
 
-    const profile = {
-        name: "Ahmad Setiawan",
-        email: "ahmad.setiawan@email.com",
-        phone: "+62 812-3456-7890",
-        location: "Surabaya, Indonesia",
-        bio: "Pengajar professional dengan pengalaman 5 tahun di bidang pengembangan web dan desain UI/UX. Saya berkomitmen untuk memberikan materi berkualitas tinggi dan mudah dipahami.",
-        courses: 12,
-        students: 450,
-        rating: 4.8,
-        reviews: 156,
-        instagram: "@ahmad_dev",
-        tiktok: "@ahmadsetiawan.tech",
-        twitter: "@AhmadSetiaDev",
-        totalHours: 5200,
+    // State untuk Modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+    // Form Hook dari Inertia
+    const { data, setData, post, processing, errors, reset } = useForm({
+        _method: "PUT",
+        name: profile.name || "",
+        email: profile.email || "",
+        phone_number: profile.phone_number || "",
+        address: profile.address || "",
+        bio: profile.bio || "",
+        instagram: profile.instagram || "",
+        tiktok: profile.tiktok || "",
+        twitter: profile.twitter || "",
+        profile_picture: null,
+    });
+
+    const handleUpdateSubmit = (e) => {
+        e.preventDefault();
+        // Mengirim data ke backend. Pastikan route 'profile.update' tersedia di Laravel
+        post(route("update.profile.mentor"), {
+            onSuccess: () => {
+                setIsUpdateModalOpen(false);
+                reset("profile_picture");
+            },
+            forceFormData: true,
+        });
     };
 
     const experiences = [
@@ -92,14 +80,14 @@ function PublicProfile() {
         {
             icon: Phone,
             label: "Nomor Telepon",
-            field: "phone",
+            field: "phone_number",
             color: "text-green-600",
             bg: "bg-green-50",
         },
         {
             icon: MapPin,
             label: "Lokasi",
-            field: "location",
+            field: "address",
             color: "text-red-600",
             bg: "bg-red-50",
         },
@@ -111,146 +99,69 @@ function PublicProfile() {
             label: "Instagram",
             field: "instagram",
             color: "text-pink-600",
-            link: `https://instagram.com/${profile.instagram.slice(1)}`,
+            link: profile.instagram
+                ? `https://instagram.com/${profile.instagram.replace("@", "")}`
+                : "#",
         },
         {
             icon: Send,
             label: "TikTok",
             field: "tiktok",
             color: "text-gray-900",
-            link: `https://tiktok.com/${profile.tiktok.slice(1)}`,
+            link: profile.tiktok
+                ? `https://www.tiktok.com/${profile.tiktok}`
+                : "#",
         },
         {
             icon: Twitter,
             label: "X (Twitter)",
             field: "twitter",
             color: "text-black",
-            link: `https://twitter.com/${profile.twitter.slice(1)}`,
+            link: profile.twitter
+                ? `https://x.com/${profile.twitter.replace("@", "")}`
+                : "#",
         },
     ];
-
-    // Komponen untuk menampilkan statistik
-    const StatItem = ({ value, label, icon: Icon, color }) => (
-        <div className="text-center p-3 flex-1 min-w-0">
-            <Icon className={`mx-auto mb-1 ${color}`} size={20} />
-            <div className="text-xl sm:text-2xl font-extrabold text-white">
-                {value}
-            </div>
-            <div className="text-white text-opacity-80 text-xs sm:text-sm">
-                {label}
-            </div>
-        </div>
-    );
-
-    // Komponen untuk menampilkan list
-    const ListCard = ({ title, icon: Icon, color, items }) => (
-        // Menggunakan shadow yang lebih menonjol
-        <div className="bg-white rounded-xl shadow-2xl border border-gray-100 h-full transform hover:shadow-indigo-200 transition duration-300">
-            <div
-                className={`p-4 flex items-center gap-2 rounded-t-xl ${color
-                    .replace("text", "bg")
-                    .replace("-600", "-100")}`}
-            >
-                <Icon className={color} size={20} />
-                <h3 className="text-base font-bold text-gray-800">{title}</h3>
-            </div>
-            <div className="p-4 space-y-3">
-                {items.length > 0 ? (
-                    items.map((item, index) => (
-                        <div
-                            key={index}
-                            className="flex items-start gap-3 text-sm border-b border-dashed border-gray-100 pb-2 last:border-b-0"
-                        >
-                            <span className="text-purple-500 mt-1 flex-shrink-0">
-                                <Star size={14} fill="currentColor" />
-                            </span>
-                            <p className="text-gray-700 leading-relaxed">
-                                {item}
-                            </p>
-                        </div>
-                    ))
-                ) : (
-                    <p className="text-gray-500 italic text-sm">
-                        Tidak ada data yang tersedia.
-                    </p>
-                )}
-            </div>
-        </div>
-    );
-
-    // Komponen untuk detail item kontak/sosial media
-    const DetailItem = ({
-        icon: Icon,
-        label,
-        value,
-        color,
-        bg,
-        isLink = false,
-        linkUrl = "#",
-    }) => (
-        <a
-            href={isLink ? linkUrl : "#"}
-            target={isLink ? "_blank" : "_self"}
-            rel={isLink ? "noopener noreferrer" : ""}
-            className={`flex items-center gap-4 p-3 rounded-xl transition duration-200 ${
-                isLink ? "hover:bg-indigo-50 cursor-pointer" : ""
-            } border border-gray-100 hover:border-indigo-200`}
-        >
-            <div
-                className={`w-10 h-10 ${bg} rounded-full flex items-center justify-center flex-shrink-0 shadow-sm`}
-            >
-                <Icon className={color} size={18} />
-            </div>
-            <div className="flex-1 min-w-0">
-                <p className="text-xs text-gray-500 truncate">{label}</p>
-                <p
-                    className={`font-medium text-sm truncate ${
-                        isLink
-                            ? "text-indigo-600 group-hover:underline"
-                            : "text-gray-900"
-                    }`}
-                >
-                    {value}
-                </p>
-            </div>
-        </a>
-    );
 
     return (
         <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
             <div className="max-w-6xl mx-auto">
-                {/* Grid Konten Utama - 1 Kolom Mobile, 3 Kolom Desktop */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    {/* Kolom Tengah (Header Card) */}
                     <div className="lg:col-span-3">
-                        {/* Header Card dengan Background Gradasi/Pattern */}
                         <div className="relative rounded-2xl shadow-2xl overflow-hidden border-4 border-white">
-                            {/* Background Pattern - Menggunakan gradasi tema sebagai background utama */}
                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 opacity-95"></div>
 
-                            {/* Konten Card */}
                             <div className="relative p-6 sm:p-10 text-white">
-                                {/* Header Profil - FULL CENTERED */}
                                 <div className="flex flex-col items-center text-center gap-6">
-                                    {/* Avatar */}
                                     <div
                                         className="relative w-32 h-32 sm:w-40 sm:h-40 bg-white bg-opacity-30 backdrop-blur-sm rounded-full flex items-center justify-center text-5xl sm:text-6xl font-extrabold text-white shadow-2xl cursor-pointer transform hover:scale-105 transition-transform duration-300 flex-shrink-0 border-4 border-white"
                                         onClick={() => setIsModalOpen(true)}
                                     >
-                                        {profile.name.charAt(0)}
+                                        <img
+                                            src={`/Assets/Images/ProfilePictures/${profile.profile_picture}`}
+                                            alt="Profile"
+                                            className="w-full h-full object-cover rounded-full"
+                                        />
                                     </div>
 
-                                    {/* Info Utama */}
                                     <div className="max-w-xl mx-auto">
                                         <h2 className="text-3xl sm:text-4xl font-extrabold mb-1">
                                             {profile.name}
                                         </h2>
                                         <p className="text-lg font-semibold text-white/90 mb-6">
-                                            {profile.location}
+                                            {profile.address}
                                         </p>
+                                        <button
+                                            onClick={() =>
+                                                setIsUpdateModalOpen(true)
+                                            }
+                                            className="bg-white text-indigo-600 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2 mx-auto"
+                                        >
+                                            <Edit size={18} />
+                                            <span>Edit Profile</span>
+                                        </button>
                                     </div>
 
-                                    {/* Stats Strip */}
                                     <div className="bg-black bg-opacity-20 rounded-xl p-3 shadow-inner flex justify-center flex-wrap gap-4 w-full max-w-2xl border border-white/30">
                                         <StatItem
                                             value={profile.courses}
@@ -276,11 +187,7 @@ function PublicProfile() {
                         </div>
                     </div>
 
-                    {/* BARIS KEDUA: KONTEN DETAIL (2:1 Grid) */}
-
-                    {/* Kolom Kiri Bawah (2/3 Bagian) */}
                     <div className="lg:col-span-2 space-y-6">
-                        {/* Card Bio */}
                         <div className="bg-white rounded-xl shadow-2xl border border-gray-100 p-5 sm:p-6 transform hover:shadow-purple-200 transition duration-300">
                             <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2 mb-4 border-b pb-2">
                                 <BookOpen
@@ -294,9 +201,7 @@ function PublicProfile() {
                             </p>
                         </div>
 
-                        {/* Card Detail Kontak & Sosial Media - Digabungkan dan disempurnakan */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {/* Card Detail Kontak */}
                             <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transform hover:shadow-blue-200 transition duration-300">
                                 <div className="p-4 bg-blue-50 border-b border-blue-100">
                                     <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
@@ -321,7 +226,6 @@ function PublicProfile() {
                                 </div>
                             </div>
 
-                            {/* Card Sosial Media */}
                             <div className="bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transform hover:shadow-pink-200 transition duration-300">
                                 <div className="p-4 bg-pink-50 border-b border-pink-100">
                                     <h3 className="text-lg font-bold text-gray-800 flex items-center gap-2">
@@ -350,33 +254,289 @@ function PublicProfile() {
                         </div>
                     </div>
 
-                    {/* Kolom Kanan (1/3 Bagian: Pengalaman & Pencapaian) */}
                     <div className="lg:col-span-1 space-y-6">
-                        {/* Bagian Pengalaman Profesional */}
                         <ListCard
                             title="Pengalaman Profesional"
                             icon={Briefcase}
                             color="text-indigo-600"
                             items={experiences}
                         />
-
-                        {/* Bagian Pencapaian & Penghargaan */}
                         <ListCard
-                            title="Pencapaian & Penghargaan"
+                            title="Pencapaian"
                             icon={Trophy}
-                            color="text-amber-600"
+                            color="text-yellow-600"
                             items={achievements}
                         />
                     </div>
                 </div>
             </div>
 
-            {/* Modal untuk menampilkan foto profil */}
+            {/* Modal Foto Profil (Zoom) */}
             <ProfileModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                name={profile.name}
+                profile_picture={profile.profile_picture}
             />
+
+            {/* MODAL UPDATE PROFILE (Inline) */}
+            {isUpdateModalOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
+                        <div className="flex items-center justify-between p-6 border-b">
+                            <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                                <Edit className="text-indigo-600" /> Perbarui
+                                Profil
+                            </h2>
+                            <button
+                                onClick={() => setIsUpdateModalOpen(false)}
+                                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                            >
+                                <X size={24} className="text-gray-500" />
+                            </button>
+                        </div>
+
+                        <form
+                            onSubmit={handleUpdateSubmit}
+                            className="overflow-y-auto p-6 space-y-6"
+                        >
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {/* Nama */}
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Nama Lengkap
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={data.name}
+                                        onChange={(e) =>
+                                            setData("name", e.target.value)
+                                        }
+                                        className="border-2 rounded-xl p-3 focus:border-indigo-500 focus:ring-0 outline-none transition-all"
+                                        placeholder="Nama Lengkap"
+                                    />
+                                    {errors.name && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.name}
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Nomor Telepon */}
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Nomor Telepon
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={data.phone_number}
+                                        onChange={(e) =>
+                                            setData(
+                                                "phone_number",
+                                                e.target.value
+                                            )
+                                        }
+                                        className="border-2 rounded-xl p-3 focus:border-indigo-500 focus:ring-0 outline-none transition-all"
+                                        placeholder="0812..."
+                                    />
+                                    {errors.phone_number && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.phone_number}
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Foto Profil */}
+                                <div className="flex flex-col gap-2 md:col-span-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Ganti Foto Profil
+                                    </label>
+                                    <div className="flex items-center gap-4 border-2 border-dashed border-gray-300 rounded-xl p-4 hover:border-indigo-400 transition-colors">
+                                        <Camera className="text-gray-400" />
+                                        <input
+                                            type="file"
+                                            onChange={(e) =>
+                                                setData(
+                                                    "profile_picture",
+                                                    e.target.files[0]
+                                                )
+                                            }
+                                            className="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
+                                        />
+                                    </div>
+                                    {errors.profile_picture && (
+                                        <p className="text-red-500 text-xs mt-1">
+                                            {errors.profile_picture}
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* Alamat */}
+                                <div className="flex flex-col gap-2 md:col-span-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Alamat / Lokasi
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={data.address}
+                                        onChange={(e) =>
+                                            setData("address", e.target.value)
+                                        }
+                                        className="border-2 rounded-xl p-3 focus:border-indigo-500 focus:ring-0 outline-none transition-all"
+                                        placeholder="Kota, Provinsi"
+                                    />
+                                </div>
+
+                                {/* Bio */}
+                                <div className="flex flex-col gap-2 md:col-span-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Bio Singkat
+                                    </label>
+                                    <textarea
+                                        rows="4"
+                                        value={data.bio}
+                                        onChange={(e) =>
+                                            setData("bio", e.target.value)
+                                        }
+                                        className="border-2 rounded-xl p-3 focus:border-indigo-500 focus:ring-0 outline-none transition-all resize-none"
+                                        placeholder="Tuliskan pengalaman atau keahlianmu..."
+                                    />
+                                </div>
+
+                                {/* Media Sosial */}
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Instagram Username
+                                    </label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-3.5 text-gray-400 text-sm">
+                                            @
+                                        </span>
+                                        <input
+                                            type="text"
+                                            value={data.instagram}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "instagram",
+                                                    e.target.value
+                                                )
+                                            }
+                                            className="border-2 rounded-xl p-3 pl-8 w-full focus:border-indigo-500 focus:ring-0 outline-none transition-all"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        TikTok Username
+                                    </label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-3.5 text-gray-400 text-sm">
+                                            @
+                                        </span>
+                                        <input
+                                            type="text"
+                                            value={data.tiktok}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "tiktok",
+                                                    e.target.value
+                                                )
+                                            }
+                                            className="border-2 rounded-xl p-3 pl-8 w-full focus:border-indigo-500 focus:ring-0 outline-none transition-all"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Email
+                                    </label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-3.5 text-gray-400 text-sm">
+                                            @
+                                        </span>
+                                        <input
+                                            type="text"
+                                            value={data.email}
+                                            onChange={(e) =>
+                                                setData("email", e.target.value)
+                                            }
+                                            className="border-2 rounded-xl p-3 pl-8 w-full focus:border-indigo-500 focus:ring-0 outline-none transition-all"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-bold text-gray-700">
+                                        Twitter
+                                    </label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-3.5 text-gray-400 text-sm">
+                                            @
+                                        </span>
+                                        <input
+                                            type="text"
+                                            value={data.twitter}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "twitter",
+                                                    e.target.value
+                                                )
+                                            }
+                                            className="border-2 rounded-xl p-3 pl-8 w-full focus:border-indigo-500 focus:ring-0 outline-none transition-all"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-end gap-3 pt-6 border-t mt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsUpdateModalOpen(false)}
+                                    className="px-6 py-2.5 text-gray-600 font-semibold hover:bg-gray-100 rounded-xl transition"
+                                >
+                                    Batal
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="bg-indigo-600 text-white px-8 py-2.5 rounded-xl font-bold hover:bg-indigo-700 transition flex items-center gap-2 disabled:opacity-50 shadow-lg shadow-indigo-200"
+                                >
+                                    {processing ? (
+                                        <span className="flex items-center gap-2">
+                                            <svg
+                                                className="animate-spin h-5 w-5 text-white"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <circle
+                                                    className="opacity-25"
+                                                    cx="12"
+                                                    cy="12"
+                                                    r="10"
+                                                    stroke="currentColor"
+                                                    strokeWidth="4"
+                                                ></circle>
+                                                <path
+                                                    className="opacity-75"
+                                                    fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                                ></path>
+                                            </svg>
+                                            Menyimpan...
+                                        </span>
+                                    ) : (
+                                        <>
+                                            <Save size={18} /> Simpan Perubahan
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

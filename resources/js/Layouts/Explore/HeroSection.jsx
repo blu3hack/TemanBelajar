@@ -28,7 +28,7 @@ function HeroSection({ user }) {
                 </div>
 
                 {/* Search Bar with Enhanced Design */}
-                <div className="relative max-w-3xl mx-auto mb-10">
+                {/* <div className="relative max-w-3xl mx-auto mb-10">
                     <div className="relative group">
                         <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition duration-300"></div>
                         <div className="relative">
@@ -40,7 +40,7 @@ function HeroSection({ user }) {
                             />
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

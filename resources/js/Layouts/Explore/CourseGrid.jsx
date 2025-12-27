@@ -147,7 +147,8 @@ function CourseGrid({
                                         <User className="w-4 h-4 text-blue-600" />
                                     </div>
                                     <span className="text-base font-bold text-gray-700">
-                                        {course.instructor}
+                                        by : Kak{" "}
+                                        {course.instructor.split(" ")[0]}
                                     </span>
                                     <span
                                         className="text-sm font-black text-purple-700 bg-purple-100/80 backdrop-blur-sm px-3 py-1 rounded-lg shadow-md border border-purple-300/50 ml-auto"

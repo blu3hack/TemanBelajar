@@ -47,6 +47,10 @@ class CreateMentorController extends Controller
                 'id' => Str::uuid()->toString(),
                 'token' => $request->token,
                 'name' => $request->name,
+                'bio' => null,
+                'instagram' => null,
+                'tiktok' => null,
+                'twitter' => null,
                 'gender' => $request->gender ?? null,
                 'religion' => $request->religion ?? null,
                 'place_birth' => $request->place_birth ?? null,
@@ -65,6 +69,8 @@ class CreateMentorController extends Controller
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
+
+            
 
             // Hapus data OTP dan Role lama jika ada
             DB::table('whatsapp_otp')

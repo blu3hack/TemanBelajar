@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm, usePage } from "@inertiajs/react";
 import {
     User,
     Mail,
@@ -20,7 +21,12 @@ import {
 } from "lucide-react";
 
 function Pengaturan() {
+    const { props } = usePage();
     const [isEditing, setIsEditing] = useState({});
+
+    const {
+        auth: { user },
+    } = props;
     const [profile, setProfile] = useState({
         name: "Ahmad Setiawan",
         email: "ahmad.setiawan@email.com",

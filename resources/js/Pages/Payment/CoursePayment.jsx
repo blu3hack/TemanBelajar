@@ -35,7 +35,8 @@ export default function CoursePayment() {
         if (flash.snapToken && window.snap) {
             setLoading(false);
             window.snap.pay(flash.snapToken, {
-                onSuccess: (result) => console.log("Success:", result),
+                onSuccess: () =>
+                    (window.location.href = "/dashboard?menu=jadwal"),
                 onPending: (result) => console.log("Pending:", result),
                 onError: (result) => {
                     console.log("Error:", result);

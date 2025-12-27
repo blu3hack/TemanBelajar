@@ -60,6 +60,7 @@ function ClassroomExplore() {
                         user={user}
                         closeModal={closeModal}
                         getBadgeStyle={getBadgeStyle}
+                        count_student={count_student}
                     />
                 </div>
             )}

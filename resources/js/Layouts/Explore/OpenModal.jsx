@@ -65,10 +65,10 @@ function OpenModal({
                     <div className="bg-blue-50 rounded-xl p-4 text-center">
                         <Users className="w-6 h-6 text-blue-500 mx-auto mb-2" />
                         <p className="text-xs text-gray-600 font-semibold">
-                            Siswa
+                            Pertemuan
                         </p>
                         <p className="text-lg font-black text-gray-900">
-                            {selectedCourse.students?.toLocaleString() ?? 0}
+                            {selectedCourse.total_meet}
                         </p>
                     </div>
                     <div className="bg-green-50 rounded-xl p-4 text-center">
@@ -86,7 +86,8 @@ function OpenModal({
                             Rating
                         </p>
                         <p className="text-lg font-black text-gray-900">
-                            {selectedCourse.rating}
+                            {/* {selectedCourse.rating} */}
+                            4.8
                         </p>
                     </div>
                     <div className="bg-purple-50 rounded-xl p-4 text-center">
